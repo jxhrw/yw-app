@@ -19,7 +19,7 @@
       </ul>
       <div class="isDefault">
         <span>设为默认地址</span>
-        <span :class="{'on':addressMy.isDefault=='1'}" class="icon_default" @click="defaultFuc"></span>
+        <span :class="{'on':addressMy.isDefault=='1','buy':'buy'==origin}" class="icon_default" @click="defaultFuc"></span>
       </div>
     </div>
 
@@ -51,6 +51,7 @@
         canClick: true, //按钮是否可点击
         popupShow: false, //弹窗是否显示
         loadingFinish: false, //数据请求完成
+        origin:'',//页面来源，buy:买手app
         addressMy: { //当前地址信息
           id: '', //收货地址id
           province: '', //省
@@ -126,11 +127,13 @@
       //返回执行
       sureBack() {
         if (this.isChange) {
+          let bg = this.origin=='buy'?'!important':''
           this.$confirm({
             title: '',
             content: '退出后将丢失您当前编辑的信息，是否退出？',
             yesText: "退出",
-            noText: '取消'
+            noText: '取消',
+            noStyle:{"background":'linear-gradient(32deg,rgba(200,142,100,0.65) 0%,rgba(200,142,100,1) 100%)'+bg},
           }).then(res => {
             this.toBack();
           }).catch(err => {});
@@ -360,6 +363,7 @@
     },
     activated() {
       this.dataInit();
+      this.origin = this.$route.query.origin;
       if (this.$route.query.id) {
         this.isInit = false;
         this.getAddressInfo({
@@ -457,6 +461,10 @@
 
   .icon_default.on {
     background-image: url('https://youwatch.oss-cn-beijing.aliyuncs.com/app/icon_switch_select.png');
+  }
+
+  .icon_default.buy.on {
+    background-image: url('https://youwatch.oss-cn-beijing.aliyuncs.com/app/icon_switch_select_brown.png');
   }
 
   .popupBox {

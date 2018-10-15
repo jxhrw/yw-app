@@ -2,12 +2,12 @@
   <div id="address">
     <ywBar :title="'选择收货地址'" type="white"></ywBar>
     <footer>
-      <ywBtn text="+ 添加收件地址" class="btn_add_address" @click.native="editAddress()"></ywBtn>
+      <ywBtn text="+ 添加收件地址" class="btn_add_address" :class="origin" @click.native="editAddress()"></ywBtn>
     </footer>
     <div class="content">
       <ul>
         <template v-for="(item,index) in addressList">
-          <li :key="index" class="my_address">
+          <li :key="index" class="my_address" :class="origin">
             <div class="addressDetail" @click="selectPost(item.id)">
               <div class="address_name_mobile">
                 <p class="address_name">{{suolve(item.person,13)}}
@@ -36,6 +36,7 @@
         canClick: true, //按钮是否可点击
         addressList: [], //地址列表
         loadingFinish: false, //数据请求完成
+        origin:'',//页面来源，buy:买手app
       }
     },
     methods: {
@@ -84,7 +85,8 @@
         this.$router.push({
           path: '/arsChange',
           query: {
-            'id': id
+            'id': id,
+            'origin':this.origin
           }
         });
       }
@@ -93,6 +95,7 @@
 
     },
     activated() {
+      this.origin = this.$route.query.origin;
       this.getAddressInfo();
     },
   };
@@ -128,6 +131,17 @@
     justify-content: space-between;
     align-items: center;
     padding: 0.3rem;
+    position: relative;
+  }
+  .my_address.buy::after{
+    content:'';
+    position: absolute;
+    height: 0.06rem;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(179deg,rgba(230,193,157,1) 0%,rgba(200,142,100,1) 100%);
+    border-radius: 0 0 0.06rem 0.06rem;
   }
 
   .btn_add_address {
@@ -137,6 +151,9 @@
     font-size: 0.28rem;
     font-weight: normal;
     color: #ffffff;
+  }
+  .btn_add_address.buy {
+    background:linear-gradient(45deg,rgba(200,142,100,0.71) 0%,rgba(200,142,100,1) 100%);
   }
 
   .address_edit {
