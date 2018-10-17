@@ -7,7 +7,7 @@
         <p class="footer_price">实付：
           <span style="color:#EA3C3C;">￥{{goodsInfo.actualPrice}}</span>
         </p>
-        <ywBtn :class="{'no':!canClick}" class="cBtn cBtn-buy" text="
+        <ywBtn :class="{'no':!canClick,'buy':'buy'==origin}" class="cBtn cBtn-buy" text="
 确认支付" @click.native="toOrder"></ywBtn>
       </div>
     </footer>
@@ -81,6 +81,7 @@
         goodsInfo: {}, //商品信息
         activityName: '', //活动名称
         loadingFinish: false, //数据请求完成
+        origin: '', //页面来源，buy:买手app
       }
     },
     methods: {
@@ -118,7 +119,8 @@
           let $this = this;
           this.ajaxResult(res, function () {
             let shopPurchasePrice = res.data.body.shopPurchasePrice;
-            let grabPrice = res.data.body.discountActivityGoodsVO ? res.data.body.discountActivityGoodsVO.grabPrice:'';
+            let grabPrice = res.data.body.discountActivityGoodsVO ? res.data.body.discountActivityGoodsVO.grabPrice :
+              '';
             let cheapMoney = res.data.body.cheapMoney;
             let transportFee = res.data.body.transportFee;
             let actualPrice = res.data.body.actualPrice;
@@ -176,7 +178,8 @@
               path: '/payChannel',
               query: {
                 'orderId': res.data.body,
-                'isBreak': isBreak
+                'isBreak': isBreak,
+                'origin':$this.$route.query.origin,
               }
             });
           });
@@ -188,7 +191,10 @@
       //去重选地址
       toChangeAddress() {
         this.$router.push({
-          path: '/address'
+          path: '/address',
+          query: {
+            'origin':this.$route.query.origin,
+          }
         });
       }
     },
@@ -196,6 +202,7 @@
 
     },
     activated() {
+      this.origin = this.$route.query.origin;
       if (!this.$route.meta.isBack) { //初次
         let goodsId = this.$route.query.goodsId;
         this.baseInfo(goodsId);
@@ -382,6 +389,7 @@
     font-weight: bold;
     color: #000000;
   }
+
   .good_nums_price .amount del {
     font-size: .22rem;
     font-weight: 100;
@@ -443,6 +451,10 @@
 
   .cBtn-buy {
     background: linear-gradient(62deg, rgba(251, 100, 85, 1) 0%, rgba(254, 61, 54, 1) 100%) !important;
+  }
+
+  .cBtn-buy.buy {
+    background: linear-gradient(45deg, rgba(200, 142, 100, 0.71) 0%, rgba(200, 142, 100, 1) 100%) !important;
   }
 
 </style>

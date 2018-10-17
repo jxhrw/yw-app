@@ -8,8 +8,18 @@
     <span class="iconShareBtn iconShareBtn1" @click="historyBack()"></span>
     <span v-if="shareBtnShow" class="iconShareBtn iconShareBtn2" @click="share(goodsId,goodsName,goodsDesc,goodsImg)"></span>
   </header>
+  <header v-else-if="type=='shareBuyApp' && isShow" class="shareHeader">
+    <span class="iconShareBtn iconShareBtn3" @click="historyBack()"></span>
+    <span v-if="shareBtnShow" class="iconShareBtn iconShareBtn2" @click="share(goodsId,goodsName,goodsDesc,goodsImg)"></span>
+  </header>
   <header v-else-if="type=='white' && isShow" class="whiteHeader">
     <mu-icon value="chevron_left" right class="iconBtn" @click="historyBack()"></mu-icon>
+    <h1>{{title}}</h1>
+    <span v-if="operateTxt==''" class="resetBtn"></span>
+    <span v-show="operateTxt!=''" :class="{'no':!isClick}" class="resetBtn" @click="operateFuc">{{operateTxt}}</span>
+  </header>
+  <header v-else-if="type=='whiteIcon' && isShow" class="whiteHeader_noline">
+    <span class="iconShareBtn iconShareBtn3" @click="historyBack()"></span>
     <h1>{{title}}</h1>
     <span v-if="operateTxt==''" class="resetBtn"></span>
     <span v-show="operateTxt!=''" :class="{'no':!isClick}" class="resetBtn" @click="operateFuc">{{operateTxt}}</span>
@@ -203,6 +213,10 @@
     background: #fff;
   }
 
+  .whiteHeader_noline{
+    background: #fff;
+  }
+
   .iconShareBtn {
     width: .6rem;
     height: .6rem;
@@ -217,6 +231,10 @@
 
   .iconShareBtn2 {
     background-image: url('../assets/imgs/icon_share.png');
+  }
+
+  .iconShareBtn3 {
+    background-image: url('https://youwatch.oss-cn-beijing.aliyuncs.com/app/icon_back.png');
   }
 
 </style>

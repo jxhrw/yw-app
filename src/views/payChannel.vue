@@ -2,7 +2,7 @@
   <div id="payChannel">
     <ywBar :title="'选择付款方式'" type="white" :finishView="isBreak" :backFuc="sureBack" :hasBackFuc="true"></ywBar>
     <footer>
-      <ywBtn :class="{'no':!canClick}" class="cBtn cBtn-buy" text="
+      <ywBtn :class="{'no':!canClick,'buy':'buy'==origin}" class="cBtn cBtn-buy" text="
 确认付款" @click.native="toPay"></ywBtn>
     </footer>
     <div class="content">
@@ -38,6 +38,7 @@
         paySelected: '', //选中的支付方式wxpay
         payMethodList: [], //可选的支付方式,非固定
         bond: '', //保证金金额
+        origin: '', //页面来源，buy:买手app
       }
     },
     methods: {
@@ -141,6 +142,7 @@
 
     },
     activated() {
+      this.origin = this.$route.query.origin;
       this.isBreak = this.$route.query.isBreak == "1";
       this.bond = this.$route.query.bond;
       this.paymentMethodFuc();
@@ -181,6 +183,9 @@
     border-radius: .44rem;
     font-size: .33rem;
     color: #ffffff;
+  }
+  .cBtn-buy.buy {
+    background: linear-gradient(45deg, rgba(200, 142, 100, 0.71) 0%, rgba(200, 142, 100, 1) 100%);
   }
 
   footer {

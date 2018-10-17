@@ -68,6 +68,28 @@ export default new Router({
       }
     },
     {
+      // 商品详情,买手app
+      path: '/goodsDetail_buy',
+      component: resolve => {
+        return require(['@/views/goodsDetail_buy'], resolve)
+      },
+      meta: {
+        keepAlive: true,
+        isBack: false,
+      }
+    },
+    {
+      // 商品详情,购买须知
+      path: '/goodsDetail_notes',
+      component: resolve => {
+        return require(['@/views/goodsDetail_notes'], resolve)
+      },
+      meta: {
+        keepAlive: true,
+        isBack: false,
+      }
+    },
+    {
       // 商家信息，本商家，需要token
       path: '/shopOnline',
       component: resolve => {

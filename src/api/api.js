@@ -62,6 +62,13 @@ export const loadGoodsInfo = pams => {
 };
 
 
+//商品详情-买手app
+export const MaiShouGoodsDetail = pams => {
+  return apiToken.get(`${base}/goods-warehouse/distributionGoods/MaiShouGoodsDetail`, {
+    "params": pams
+  })
+};
+
 //商品详情
 export const loadGoodsDetail = pams => {
   return apiToken.get(`${base}/goods-warehouse/goodsShow/loadGoodsDetail`, {

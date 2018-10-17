@@ -77,6 +77,9 @@
       },
       //选中新的收货地址
       selectPost(id) {
+        if('1'==this.$route.query.level){
+          return false;
+        }
         sessionStorage.setItem("addressId", id);
         window.history.back();
       },
