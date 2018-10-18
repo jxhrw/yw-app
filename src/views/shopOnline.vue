@@ -21,6 +21,7 @@
               <div class="logo" id="logo" :style="{'background-image':'url('+shopInfoTxt.fullLogoUrl+')'}"></div>
               <div class="shopTxt">
                 <h1>
+                  <a class="phone" href="tel:13345815663">13345815663</a>
                   <a class="phone" @click="goTel(shopInfoTxt.linkPhone)">
                     <mu-icon value="phone"></mu-icon>
                     <span style="position: relative;top: 1px;">联系商家</span>
@@ -147,7 +148,10 @@
                 $bodyThis.$refs.bodyhtml.scrollTop = buttonsUsefulCH - topBarHeight;
               }
               $this.pageItems = res.data.body.page.items;
+              debugger
+              console.log($this.pageItems);
             } else {
+              debugger
               $this.pageItems = $this.pageItems.concat(res.data.body.page.items);
             }
           })

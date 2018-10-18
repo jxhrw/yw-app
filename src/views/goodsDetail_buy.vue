@@ -6,7 +6,7 @@
       <div class="shadow"></div>
       <div class="btnBox">
         <template>
-          <ywBtn :class="{'no':!canClick || homeGoods=='1'||proPrice==-1 || goodsStock<1}" class="cBtn cBtn-buy" :text="goodsStock<1?'已售罄':'立即购买'"
+          <ywBtn :class="{'no':!canClick || homeGoods=='1'||proPrice==-1 || totalStock<1}" class="cBtn cBtn-buy" :text="totalStock<1?'已售罄':'立即购买'"
             @click.native="toBuy(goodsId,shopId)"></ywBtn>
           <ywBtn :class="{'no':!canClick || homeGoods=='1'||proPrice==-1}" class="cBtn cBtn-ans" text="分享" @click.native="shareToImg(goodsId)"></ywBtn>
         </template>
@@ -164,7 +164,7 @@
         canClick: true, //按钮是否可点击
         productDesc: '', //商品描述
         newOldLevel: {}, //新旧程度
-        goodsStock: 1, //商品库存
+        totalStock: 1, //商品库存
         homeGoods: 0, //自家商品，0不是自家，1是自家
         isCollect: null, //该商品是否收藏，0未收藏，1已收藏，null没有收藏功能
         propsName: {}, //商品属性
@@ -204,7 +204,7 @@
             $this.goodsId = res.data.body.goodsId;
             $this.productDesc = res.data.body.productDesc;
             $this.newOldLevel = res.data.body.newOldLevel;
-            $this.goodsStock = res.data.body.goodsStock;
+            $this.totalStock = res.data.body.totalStock;
             $this.homeGoods = res.data.body.homeGoods;
             $this.isCollect = res.data.body.isCollect;
             $this.propsName = res.data.body.propsName || {};
@@ -319,7 +319,7 @@
         this.canClick = true;
         this.productDesc = '';
         this.newOldLevel = {};
-        this.goodsStock = 1;
+        this.totalStock = 1;
         this.homeGoods = 0;
         this.isCollect = null;
         // this.power = -1;

@@ -3,7 +3,7 @@
     <template v-for="(item,index) in items">
       <li :key="index" @click="jumpHref(item.id,item.detailUrl)">
         <div class="imgDiv">
-          <img v-lazy="item.image+'?x-oss-process=image/resize,limit_0,m_fill,w_400,h_400'" width="100%" height="100%">
+          <img v-lazy="item.image+'?x-oss-process=image/resize,limit_0,m_fill,w_400,h_400'" :key="item.image" width="100%" height="100%">
         </div>
         <div class="infoBox">
           <p class="itName">{{item.name}}</p>

@@ -75,10 +75,15 @@ export default (Vue) => {
   //打电话
   Vue.prototype.goTel = function (phone) {
     let device = this.whichDevice();
+    this.$alert(phone);
     if (device == "androidApp") {
       window.Android.getTel(phone.toString());
     } else {
-      window.location.href = 'tel:' + phone;
+      try{
+        window.location.href = 'tel:' + phone;
+      }catch(err){
+        this.$alert(err);
+      }
     }
   }
 
