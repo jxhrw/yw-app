@@ -199,10 +199,10 @@ export default new Router({
         isBack: false,
       }
     },
-    //活动地址0918
+    //活动地址1019
     {
-      path: '/act0918',
-      component: resolve => { return require([ '@/views/activity_0918' ], resolve) },
+      path: '/act1019',
+      component: resolve => { return require([ '@/views/activity_1019' ], resolve) },
       meta: {
         keepAlive: true,
         isBack:false,
