@@ -31,8 +31,8 @@
               <div class='swiperImg'>
                 <ul>
                   <li>·“YOUWATCH”在核对您所订购的商品、邮寄地址、款项支付等信息无误后确认订单，订单确认后会尽快给您发货。</li>
-                  <li>·发货时间：正常情况下，我们将会在确认订单后48小时之内发货。如若碰到恶劣天气等其他特殊情况，我们会及时通知您并另行安排发货时间。</li>
-                  <li>·包裹发出后，您可以在账户的订单信息中，实时查询包裹在途情况。 ·平台默认发顺丰快递，由退款/退货产生的运费，将有责任方承担。</li>
+                  <li>· 发货时间：正常情况下，我们将会在确认订单后48小时之内发货。如若碰到恶劣天气等其他特殊情况，我们会及时通知您并另行安排发货时间。</li>
+                  <li>· 包裹发出后，您可以在账户的订单信息中，实时查询包裹在途情况。 ·平台默认发顺丰快递，由退款/退货产生的运费，将有责任方承担。</li>
                 </ul>
               </div>
             </swiper-slide>
@@ -363,14 +363,16 @@
     outline: none;
   }
 
-#goodsDetail_notes .swiper-container-horizontal > .swiper-scrollbar {
+  #goodsDetail_notes .swiper-container-horizontal>.swiper-scrollbar {
     width: 77.8%;
     top: 0.92rem;
     left: 11%;
     height: 0.06rem;
     background: none;
-}
-#goodsDetail_notes .swiper-scrollbar-drag{
-  background: rgba(200, 142, 100, 1);
-}
+  }
+
+  #goodsDetail_notes .swiper-scrollbar-drag {
+    background: rgba(200, 142, 100, 1);
+  }
+
 </style>

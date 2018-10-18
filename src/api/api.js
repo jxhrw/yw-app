@@ -104,6 +104,13 @@ export const cartGoodsDetail = pams => {
   })
 };
 
+//购物车商品详情-买手app
+export const cartMaiShouGoodsDetail = pams => {
+  return apiToken.get(`${base}/goods-warehouse/distributionGoods/cartMaiShouGoodsDetail`, {
+    "params": pams
+  })
+};
+
 //获取店铺信息
 export const loadShopInfo = pams => {
   return apiToken.get(`${base}/user-center/myShop/loadShopInfo`, {

@@ -26,8 +26,8 @@
         </div>
       </div>
       <div class="c_goodsInfo" v-if="loadingFinish">
-        <h3>{{shopInfo.sellerShopName}}</h3>
-        <div class="goodsDetail">
+        <h3 v-if="shopInfo.sellerShopName">{{shopInfo.sellerShopName}}</h3>
+        <div class="goodsDetail" :style="{'padding-top':shopInfo.sellerShopName?'0.3rem':'0.1rem'}">
           <div class="goodImg" :style="{'background-image':'url('+goodsInfo.image+')'}"></div>
           <div class="goodinfo">
             <div class="goodName">
@@ -65,6 +65,7 @@
   import {
     loadGoodsDetail,
     cartGoodsDetail,
+    cartMaiShouGoodsDetail,
     listReceiverAddress,
     submitOrder,
     loadReceiverAddress
@@ -115,7 +116,7 @@
       },
       //商品信息
       getGoodsInfo(data) {
-        cartGoodsDetail(data).then(res => {
+        this.dataInterface(data).then(res => {
           let $this = this;
           this.ajaxResult(res, function () {
             let shopPurchasePrice = res.data.body.shopPurchasePrice;
@@ -130,15 +131,31 @@
             $this.goodsInfo.image = res.data.body.goodsUrlShow ||
               'https://youwatch.oss-cn-beijing.aliyuncs.com/app/img_default.png';
             $this.goodsInfo.name = res.data.body.goodsName;
-            $this.goodsInfo.price = res.data.body.discountActivityGoodsVO ? grabPrice : res.data.body.shopPurchasePrice;
             $this.goodsInfo.retailPrice = res.data.body.discountActivityGoodsVO ? shopPurchasePrice : '';
-            $this.goodsInfo.shopPurchasePrice = shopPurchasePrice;
             $this.goodsInfo.cheapMoney = cheapMoney;
             $this.goodsInfo.transportFee = transportFee;
             $this.goodsInfo.actualPrice = actualPrice;
+            if ($this.origin == 'buy') {
+              $this.goodsInfo.price = actualPrice;
+              $this.goodsInfo.shopPurchasePrice = actualPrice;
+            } else {
+              $this.goodsInfo.price = res.data.body.discountActivityGoodsVO ? grabPrice : shopPurchasePrice;
+              $this.goodsInfo.shopPurchasePrice = shopPurchasePrice;
+            }
           });
         }).catch((err) => {
           this.axiosCatch(err);
+        });
+      },
+      //商品信息接口
+      dataInterface(data) {
+        let origin = this.origin;
+        return new Promise(function (resolve, reject) {
+          if (origin == 'buy') {
+            resolve(cartMaiShouGoodsDetail(data));
+          } else {
+            resolve(cartGoodsDetail(data));
+          }
         });
       },
       //截取字符串，汉字占2字符
@@ -179,7 +196,7 @@
               query: {
                 'orderId': res.data.body,
                 'isBreak': isBreak,
-                'origin':$this.$route.query.origin,
+                'origin': $this.$route.query.origin,
               }
             });
           });
@@ -193,7 +210,7 @@
         this.$router.push({
           path: '/address',
           query: {
-            'origin':this.$route.query.origin,
+            'origin': this.$route.query.origin,
           }
         });
       }
