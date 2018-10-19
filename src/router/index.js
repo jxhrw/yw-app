@@ -155,6 +155,17 @@ export default new Router({
         isBack: false,
       }
     },
+    //关于我们-买手app
+    {
+      path: '/aboutBuy',
+      component: resolve => {
+        return require(['@/views/aboutBuy'], resolve)
+      },
+      meta: {
+        keepAlive: true,
+        isBack: false,
+      }
+    },
     //关于我们
     {
       path: '/policy',
@@ -335,6 +346,17 @@ export default new Router({
       path: '/appraisal',
       component: resolve => {
         return require(['@/views/appraisal'], resolve)
+      },
+      meta: {
+        keepAlive: true,
+        isBack: false,
+      }
+    },
+    //物流
+    {
+      path: '/logistics',
+      component: resolve => {
+        return require(['@/views/order_logistics'], resolve)
       },
       meta: {
         keepAlive: true,

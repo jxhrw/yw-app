@@ -20,8 +20,7 @@
       <div class="gradient"></div>
       <div class="footer">
         <a class="footBtn" @click="goTel(4000116008)">联系客服</a>
-        <ywBtn text='添加微信' class="footBtn" style="background-image:linear-gradient(-49deg, #fb6455 0%, #fe3d36 100%);color:#fff;margin-left:.5rem;"
-          v-clipboard:copy="message" v-clipboard:success="onCopy" v-clipboard:error="onError"></ywBtn>
+        <ywBtn text='添加微信' class="footBtn red" :class="origin" v-clipboard:copy="message" v-clipboard:success="onCopy" v-clipboard:error="onError"></ywBtn>
       </div>
     </footer>
     <!-- 弹窗 -->
@@ -49,7 +48,8 @@
         isOpen: [], //所有列表是否展开，默认全是false
         isDrop: [], //所有列表是否有下拉箭头
         popupShow: false, //弹窗是否展示
-        message: 'youwatchyunying'
+        message: 'youwatchyunying',
+        origin: '', //页面来源，buy:买手app
       }
     },
     methods: {
@@ -127,8 +127,13 @@
 
     },
     activated() {
+      this.origin = this.$route.query.origin;
       this.dataInit();
-      this.problemInfo();
+      let obj = {};
+      if('buy'==this.origin){
+        obj = {'distributionChannel':'distribution_buyer_role'}
+      }
+      this.problemInfo(obj);
     },
   };
 
@@ -230,6 +235,16 @@
     font-family: PingFangSC-Medium;
     font-size: .28rem;
     color: #333333;
+  }
+
+  .footBtn.red{
+    background-image:linear-gradient(-49deg, #fb6455 0%, #fe3d36 100%);
+    color:#fff;
+    margin-left:.5rem;
+  }
+
+  .footBtn.red.buy{
+    background: linear-gradient(45deg, rgba(200, 142, 100, 0.71) 0%, rgba(200, 142, 100, 1) 100%);
   }
 
   .popup {

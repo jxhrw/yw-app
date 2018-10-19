@@ -4,16 +4,16 @@
     <div class="content">
       <div class="flex">
         <div class="icon"></div>
-        <h6>有表商家版</h6>
-        <h6>{{version || 'v1.2.0'}}</h6>
+        <h6>关于youwatch</h6>
+        <h6>{{version || 'v1.0.0'}}</h6>
       </div>
       <ul class="list">
         <li @click="goPolicy">
           隐私政策
           <mu-icon class="icon_right" value="chevron_right"></mu-icon>
         </li>
-        <li @click="goQrcode">
-          有表商家服务公众号
+        <li @click="goAgree">
+          用户协议
           <mu-icon class="icon_right" value="chevron_right"></mu-icon>
         </li>
       </ul>
@@ -25,7 +25,7 @@
   export default {
     data() {
       return {
-        version: '',
+        version:'',
       }
     },
     methods: {
@@ -34,9 +34,9 @@
           path: '/policy'
         });
       },
-      goQrcode() {
+      goAgree() {
         this.$router.push({
-          path: '/qrcode'
+          path: '/agreement'
         });
       },
       //JS接收OC传值的代码
@@ -48,7 +48,7 @@
       window.getVersion = this.getVersion;
     },
     activated() {
-
+      
     },
   };
 

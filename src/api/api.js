@@ -265,3 +265,10 @@ export const addOrModifyShopUser = pams => {
 export const startOrStopUse = pams => {
   return apiJsonToken.post(`${base}/user-center/shopUser/startOrStopUse`,pams)
 };
+
+//物流信息
+export const maishouLogisticsDetail = pams => {
+  return apiToken.get(`${base}/fund-account/olderMain/maishouLogisticsDetail`, {
+    "params": pams
+  })
+};
