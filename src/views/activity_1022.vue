@@ -1,9 +1,14 @@
 <template>
+<<<<<<< HEAD
   <div id="activity_0921">
+=======
+  <div id="activity_1022">
+>>>>>>> v1.2.0
     <!-- <ywBar :title="'有表优选'" type="white"></ywBar> -->
     <div v-if="isApp" class="topBtnRight" @click="shareUrl()"></div>
     <div class="content" ref="bodyhtml">
       <ywTopLoad v-if="!isApp"></ywTopLoad>
+<<<<<<< HEAD
       <div class="header1"></div>
       <div class="header2"></div>
       <div class="header3"></div>
@@ -12,11 +17,26 @@
       <div class="header6"></div>
       <div class="header7"></div>
       <div class="header8"></div>
+=======
+      <img src="https://youwatch.oss-cn-beijing.aliyuncs.com/app/activity/181022cf/act1022_01.png" class="header" alt="">
+      <img src="https://youwatch.oss-cn-beijing.aliyuncs.com/app/activity/181022cf/act1022_02.png" class="header" alt="">
+      <img src="https://youwatch.oss-cn-beijing.aliyuncs.com/app/activity/181022cf/act1022_03.png" class="header" alt="">
+      <img src="https://youwatch.oss-cn-beijing.aliyuncs.com/app/activity/181022cf/act1022_04.png" class="header" alt="">
+      <img src="https://youwatch.oss-cn-beijing.aliyuncs.com/app/activity/181022cf/act1022_05.png" class="header" alt="">
+      <img src="https://youwatch.oss-cn-beijing.aliyuncs.com/app/activity/181022cf/act1022_06.png" class="header" alt="">
+      <img src="https://youwatch.oss-cn-beijing.aliyuncs.com/app/activity/181022cf/act1022_07.png" class="header" alt="">
+      <img src="https://youwatch.oss-cn-beijing.aliyuncs.com/app/activity/181022cf/title1.png" class="header" style="width:76.133%;margin-top:0.35rem;margin-bottom:0.4rem;"
+        alt="">
+>>>>>>> v1.2.0
       <ul class="actList">
         <!-- <li >@click="toDetail(1)" -->
         <li v-for="(item,index) in infoList" :key="index" @click="toDetail(item.goodId)">
           <div class="img">
+<<<<<<< HEAD
             <img v-lazy="item.img+'?x-oss-process=image/resize,limit_0,m_fill,w_500,h_500'" width="100%" height="100%">
+=======
+            <img v-lazy="item.img+'?x-oss-process=image/resize,limit_0,m_fill,w_500,h_500'" :key="item.img" width="100%" height="100%">
+>>>>>>> v1.2.0
           </div>
           <div class="info">
             <!-- <h6>{{item.goods.shopInfo.cnName}}</h6> -->
@@ -24,7 +44,12 @@
               <h5>{{item.goods.nameShow}}</h5>
             </div>
             <p>
+<<<<<<< HEAD
               ￥<span>{{item.goods.shopPurchasePriceLongShow}}</span>
+=======
+              ￥
+              <span>{{item.goods.shopPurchasePriceLongShow}}</span>
+>>>>>>> v1.2.0
             </p>
             <del>¥{{item.publicPrice}}</del>
             <ywBtn :text="item.goods.availStock>0?'立即购买':'售罄'" class="btn" :class="item.goods.availStock>0?'buy':'noBuy'" @click.native="editAddress()"></ywBtn>
@@ -48,7 +73,13 @@
     },
     methods: {
       getData() {
+<<<<<<< HEAD
         queryActivityGoods().then(res => {
+=======
+        queryActivityGoods({
+          'code': '1019-z'
+        }).then(res => {
+>>>>>>> v1.2.0
           let $this = this;
           $this.infoList = res.data.items;
           //   this.ajaxResult(res, function () {
@@ -76,13 +107,21 @@
       },
       handleScroll() {
         let scrollTop = this.$refs.bodyhtml.scrollTop;
+<<<<<<< HEAD
         sessionStorage.setItem("act0921", scrollTop);
+=======
+        sessionStorage.setItem("act1022", scrollTop);
+>>>>>>> v1.2.0
       },
       //分享网页
       shareUrl() {
         let device = this.whichDevice();
         let url = window.location.href;
+<<<<<<< HEAD
         let name = '”有盟会”集结号:杭州广诚表行';
+=======
+        let name = '”有盟会”集结号:奢缘名品';
+>>>>>>> v1.2.0
         let desc = '广交好友，诚信经营';
         let imgUrl = 'https://youwatch.oss-cn-beijing.aliyuncs.com/system/youwatch_logo.png';
         if (device == "androidApp") {
@@ -107,7 +146,11 @@
       }
     },
     activated() {
+<<<<<<< HEAD
       let name = '”有盟会”集结号:杭州广诚表行';
+=======
+      let name = '”有盟会”集结号:奢缘名品';
+>>>>>>> v1.2.0
       let desc = '广交好友，诚信经营';
       let imgUrl = 'https://youwatch.oss-cn-beijing.aliyuncs.com/system/youwatch_logo.png';
       let data = {
@@ -126,7 +169,11 @@
         if (device == "androidApp" || device == "iosApp") {
           this.isApp = true;
         }
+<<<<<<< HEAD
         this.$refs.bodyhtml.scrollTop = sessionStorage.getItem("act0921");
+=======
+        this.$refs.bodyhtml.scrollTop = sessionStorage.getItem("act1022");
+>>>>>>> v1.2.0
       }
     },
   };
@@ -134,7 +181,11 @@
 </script>
 
 <style scoped>
+<<<<<<< HEAD
   #activity_0921 {
+=======
+  #activity_1022 {
+>>>>>>> v1.2.0
     background: #202636;
     height: 100%;
   }
@@ -148,6 +199,7 @@
     font-size: .28rem;
   }
 
+<<<<<<< HEAD
   .header1 {
     width: 100%;
     height: 8.64rem;
@@ -188,6 +240,12 @@
     height: 0.24rem;
     background: url('https://youwatch.oss-cn-beijing.aliyuncs.com/app%2Factivity%2F180921%2Ftitle1.png') no-repeat top center/contain;
     margin-bottom: 0.4rem;
+=======
+  .header {
+    display: block;
+    width: 100%;
+    margin: auto;
+>>>>>>> v1.2.0
   }
 
   ul.actList {

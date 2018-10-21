@@ -40,7 +40,11 @@
     methods: {
       getData() {
         queryActivitys({
+<<<<<<< HEAD
           'code': '1019--o'
+=======
+          'code': '1019-x'
+>>>>>>> v1.2.0
         }).then(res => {
           let $this = this;
           $this.infoList = res.data.items;
@@ -69,7 +73,11 @@
       },
       handleScroll() {
         let scrollTop = this.$refs.bodyhtml.scrollTop;
+<<<<<<< HEAD
         sessionStorage.setItem("act1019", scrollTop);
+=======
+        sessionStorage.setItem("act1023", scrollTop);
+>>>>>>> v1.2.0
       },
       //分享网页
       shareUrl() {
@@ -115,7 +123,11 @@
       if (!this.$route.meta.isBack) {
         this.getData();
       } else {
+<<<<<<< HEAD
         this.$refs.bodyhtml.scrollTop = sessionStorage.getItem("act1019");
+=======
+        this.$refs.bodyhtml.scrollTop = sessionStorage.getItem("act1023");
+>>>>>>> v1.2.0
       }
     },
   };
@@ -140,7 +152,11 @@
   .header {
     width: 100%;
     height: 7.9rem;
+<<<<<<< HEAD
     background: url('https://youwatch.oss-cn-beijing.aliyuncs.com/app/activity/181019/header.png') no-repeat top center/100%;
+=======
+    background: url('https://youwatch.oss-cn-beijing.aliyuncs.com/app/activity/181023/header.png') no-repeat top center/100%;
+>>>>>>> v1.2.0
   }
 
   ul.actList {

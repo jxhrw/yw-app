@@ -220,9 +220,15 @@ export const queryActivitys = pams => {
     "params": pams
   })
 };
-//活动0921
+//活动0921-采访老
 export const queryActivityGoods = pams => {
   return apiToken.get(`${base}/activityH5Action/queryActivityGoods.json`, {
+    "params": pams
+  })
+};
+//活动 -- 采访新
+export const queryZhuanfangGoods = pams => {
+  return apiToken.get(`${base}/activityH5Action/queryZhuanfangGoods.json`, {
     "params": pams
   })
 };
