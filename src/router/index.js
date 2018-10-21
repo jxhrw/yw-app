@@ -261,8 +261,6 @@ export default new Router({
         isBack:false,
       }
     },
-<<<<<<< HEAD
-=======
     //活动地址1019
     {
       path: '/act1019',
@@ -290,7 +288,6 @@ export default new Router({
         isBack:false,
       }
     },
->>>>>>> v1.2.0
     //活动地址1002
     {
       path: '/act1002',

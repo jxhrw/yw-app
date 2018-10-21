@@ -73,13 +73,9 @@
     },
     methods: {
       getData() {
-<<<<<<< HEAD
-        queryActivityGoods().then(res => {
-=======
         queryActivityGoods({
           'code': '1019-z'
         }).then(res => {
->>>>>>> v1.2.0
           let $this = this;
           $this.infoList = res.data.items;
           //   this.ajaxResult(res, function () {
@@ -107,21 +103,13 @@
       },
       handleScroll() {
         let scrollTop = this.$refs.bodyhtml.scrollTop;
-<<<<<<< HEAD
-        sessionStorage.setItem("act0921", scrollTop);
-=======
         sessionStorage.setItem("act1022", scrollTop);
->>>>>>> v1.2.0
       },
       //分享网页
       shareUrl() {
         let device = this.whichDevice();
         let url = window.location.href;
-<<<<<<< HEAD
-        let name = '”有盟会”集结号:杭州广诚表行';
-=======
         let name = '”有盟会”集结号:奢缘名品';
->>>>>>> v1.2.0
         let desc = '广交好友，诚信经营';
         let imgUrl = 'https://youwatch.oss-cn-beijing.aliyuncs.com/system/youwatch_logo.png';
         if (device == "androidApp") {
@@ -146,11 +134,7 @@
       }
     },
     activated() {
-<<<<<<< HEAD
-      let name = '”有盟会”集结号:杭州广诚表行';
-=======
       let name = '”有盟会”集结号:奢缘名品';
->>>>>>> v1.2.0
       let desc = '广交好友，诚信经营';
       let imgUrl = 'https://youwatch.oss-cn-beijing.aliyuncs.com/system/youwatch_logo.png';
       let data = {
@@ -169,11 +153,7 @@
         if (device == "androidApp" || device == "iosApp") {
           this.isApp = true;
         }
-<<<<<<< HEAD
-        this.$refs.bodyhtml.scrollTop = sessionStorage.getItem("act0921");
-=======
         this.$refs.bodyhtml.scrollTop = sessionStorage.getItem("act1022");
->>>>>>> v1.2.0
       }
     },
   };
@@ -181,11 +161,7 @@
 </script>
 
 <style scoped>
-<<<<<<< HEAD
-  #activity_0921 {
-=======
   #activity_1022 {
->>>>>>> v1.2.0
     background: #202636;
     height: 100%;
   }
@@ -199,53 +175,10 @@
     font-size: .28rem;
   }
 
-<<<<<<< HEAD
-  .header1 {
-    width: 100%;
-    height: 8.64rem;
-    background: url('https://youwatch.oss-cn-beijing.aliyuncs.com/app%2Factivity%2F180921%2Fact0921_1.png') no-repeat top center/100%;
-  }
-  .header2 {
-    width: 100%;
-    height: 8.07rem;
-    background: url('https://youwatch.oss-cn-beijing.aliyuncs.com/app%2Factivity%2F180921%2Fact0921_2.png') no-repeat top center/100%;
-  }
-  .header3 {
-    width: 100%;
-    height: 10.76rem;
-    background: url('https://youwatch.oss-cn-beijing.aliyuncs.com/app%2Factivity%2F180921%2Fact0921_3.png') no-repeat top center/100%;
-  }
-  .header4 {
-    width: 100%;
-    height: 5.68rem;
-    background: url('https://youwatch.oss-cn-beijing.aliyuncs.com/app%2Factivity%2F180921%2Fact0921_4.png') no-repeat top center/100%;
-  }
-  .header5 {
-    width: 100%;
-    height: 6.05rem;
-    background: url('https://youwatch.oss-cn-beijing.aliyuncs.com/app%2Factivity%2F180921%2Fact0921_5.png') no-repeat top center/100%;
-  }
-  .header6 {
-    width: 100%;
-    height: 6.05rem;
-    background: url('https://youwatch.oss-cn-beijing.aliyuncs.com/app%2Factivity%2F180921%2Fact0921_6.png') no-repeat top center/100%;
-  }
-  .header7 {
-    width: 100%;
-    height: 4.09rem;
-    background: url('https://youwatch.oss-cn-beijing.aliyuncs.com/app%2Factivity%2F180921%2Fact0921_7.png') no-repeat top center/100%;
-  }
-  .header8 {
-    width: 100%;
-    height: 0.24rem;
-    background: url('https://youwatch.oss-cn-beijing.aliyuncs.com/app%2Factivity%2F180921%2Ftitle1.png') no-repeat top center/contain;
-    margin-bottom: 0.4rem;
-=======
   .header {
     display: block;
     width: 100%;
     margin: auto;
->>>>>>> v1.2.0
   }
 
   ul.actList {
