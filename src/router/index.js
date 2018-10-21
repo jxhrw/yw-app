@@ -199,6 +199,24 @@ export default new Router({
         isBack: false,
       }
     },
+    //活动地址0929 -- 采访
+    {
+      path: '/act0929',
+      component: resolve => { return require([ '@/views/activity_0929' ], resolve) },
+      meta: {
+        keepAlive: true,
+        isBack:false,
+      }
+    },
+    //活动地址1022 -- 采访
+    {
+      path: '/act1022',
+      component: resolve => { return require([ '@/views/activity_1022' ], resolve) },
+      meta: {
+        keepAlive: true,
+        isBack:false,
+      }
+    },
     //活动地址1019
     {
       path: '/act1019',
@@ -208,19 +226,10 @@ export default new Router({
         isBack:false,
       }
     },
-    //活动地址0921
+    //活动地址1023
     {
-      path: '/act0921',
-      component: resolve => { return require([ '@/views/activity_0921' ], resolve) },
-      meta: {
-        keepAlive: true,
-        isBack:false,
-      }
-    },
-    //活动地址0927
-    {
-      path: '/act0927',
-      component: resolve => { return require([ '@/views/activity_0927' ], resolve) },
+      path: '/act1023',
+      component: resolve => { return require([ '@/views/activity_1023' ], resolve) },
       meta: {
         keepAlive: true,
         isBack:false,
@@ -275,15 +284,6 @@ export default new Router({
     {
       path: '/act1016',
       component: resolve => { return require([ '@/views/activity_1016' ], resolve) },
-      meta: {
-        keepAlive: true,
-        isBack:false,
-      }
-    },
-    //活动地址0925
-    {
-      path: '/act0925',
-      component: resolve => { return require([ '@/views/activity_0925' ], resolve) },
       meta: {
         keepAlive: true,
         isBack:false,
