@@ -39,7 +39,7 @@
 
 <script>
   import {
-    queryActivityGoods
+    queryZhuanfangGoods
   } from '../api/api'
   export default {
     data() {
@@ -50,7 +50,7 @@
     },
     methods: {
       getData() {
-        queryActivityGoods({
+        queryZhuanfangGoods({
           'code': '1019-z'
         }).then(res => {
           let $this = this;
