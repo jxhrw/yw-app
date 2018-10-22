@@ -13,7 +13,7 @@
           <p class="bondDesc">该保证金为有表门店终端的设备押金，若退还设备，该保证金将退还。</p>
         </li>
         <template v-for="(item,index) in payMethodList">
-          <li :key="index" :class="[item.code,item.code==paySelected?'select':'',item.description && item.description.indexOf('余额不足')>-1?'no':'']"
+          <li v-if="!('buy'==origin && ('balance_pay'==item.code || 'wechat_pay'==item.code))" :key="index" :class="[item.code,item.code==paySelected?'select':'',item.description && item.description.indexOf('余额不足')>-1?'no':'']"
             @click="payChosen(item.code)">
             <div class="pay-single">
               <h3>{{item.name}}</h3>

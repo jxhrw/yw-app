@@ -72,7 +72,7 @@
   }
 
   .flex .icon {
-    background: url('https://youwatch.oss-cn-beijing.aliyuncs.com/app/logo_about.png') no-repeat center/100% 100%;
+    background: url('https://youwatch.oss-cn-beijing.aliyuncs.com/app/logo_buy_about.png') no-repeat center/100% 100%;
     width: 1.50rem;
     height: 1.50rem;
     margin: 0.6rem auto 0.23rem auto;

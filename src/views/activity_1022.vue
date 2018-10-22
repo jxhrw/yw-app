@@ -1,23 +1,9 @@
 <template>
-<<<<<<< HEAD
-  <div id="activity_0921">
-=======
   <div id="activity_1022">
->>>>>>> v1.2.0
     <!-- <ywBar :title="'有表优选'" type="white"></ywBar> -->
     <div v-if="isApp" class="topBtnRight" @click="shareUrl()"></div>
     <div class="content" ref="bodyhtml">
       <ywTopLoad v-if="!isApp"></ywTopLoad>
-<<<<<<< HEAD
-      <div class="header1"></div>
-      <div class="header2"></div>
-      <div class="header3"></div>
-      <div class="header4"></div>
-      <div class="header5"></div>
-      <div class="header6"></div>
-      <div class="header7"></div>
-      <div class="header8"></div>
-=======
       <img src="https://youwatch.oss-cn-beijing.aliyuncs.com/app/activity/181022cf/act1022_01.png" class="header" alt="">
       <img src="https://youwatch.oss-cn-beijing.aliyuncs.com/app/activity/181022cf/act1022_02.png" class="header" alt="">
       <img src="https://youwatch.oss-cn-beijing.aliyuncs.com/app/activity/181022cf/act1022_03.png" class="header" alt="">
@@ -27,16 +13,11 @@
       <img src="https://youwatch.oss-cn-beijing.aliyuncs.com/app/activity/181022cf/act1022_07.png" class="header" alt="">
       <img src="https://youwatch.oss-cn-beijing.aliyuncs.com/app/activity/181022cf/title1.png" class="header" style="width:76.133%;margin-top:0.35rem;margin-bottom:0.4rem;"
         alt="">
->>>>>>> v1.2.0
       <ul class="actList">
         <!-- <li >@click="toDetail(1)" -->
         <li v-for="(item,index) in infoList" :key="index" @click="toDetail(item.goodId)">
           <div class="img">
-<<<<<<< HEAD
-            <img v-lazy="item.img+'?x-oss-process=image/resize,limit_0,m_fill,w_500,h_500'" width="100%" height="100%">
-=======
             <img v-lazy="item.img+'?x-oss-process=image/resize,limit_0,m_fill,w_500,h_500'" :key="item.img" width="100%" height="100%">
->>>>>>> v1.2.0
           </div>
           <div class="info">
             <!-- <h6>{{item.goods.shopInfo.cnName}}</h6> -->
@@ -44,12 +25,8 @@
               <h5>{{item.goods.nameShow}}</h5>
             </div>
             <p>
-<<<<<<< HEAD
-              ￥<span>{{item.goods.shopPurchasePriceLongShow}}</span>
-=======
               ￥
               <span>{{item.goods.shopPurchasePriceLongShow}}</span>
->>>>>>> v1.2.0
             </p>
             <del>¥{{item.publicPrice}}</del>
             <ywBtn :text="item.goods.availStock>0?'立即购买':'售罄'" class="btn" :class="item.goods.availStock>0?'buy':'noBuy'" @click.native="editAddress()"></ywBtn>

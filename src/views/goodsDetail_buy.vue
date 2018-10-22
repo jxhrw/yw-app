@@ -333,9 +333,9 @@
       shareToImg(id) {
         let device = this.whichDevice();
         if (device == "androidApp") {
-          window.Android.getGoodsId(id);
+          window.Android.shareNine(id);
         } else if (device == "iosApp") {
-          window.webkit.messageHandlers.getGoodsId.postMessage(id);
+          window.webkit.messageHandlers.shareNine.postMessage(id);
         }
       },
       //购买
