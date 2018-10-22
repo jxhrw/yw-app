@@ -76,7 +76,7 @@
         let device = this.whichDevice();
         let url = window.location.href;
         let name = '有表优选';
-        let desc = '德道腕表精选';
+        let desc = '思路奢品三折场';
         let imgUrl = 'https://youwatch.oss-cn-beijing.aliyuncs.com/system/youwatch_logo.png';
         if (device == "androidApp") {
           window.Android.getShareContent(name, url, desc, imgUrl);
@@ -101,7 +101,7 @@
     },
     activated() {
       let name = '有表优选';
-      let desc = '德道腕表精选';
+      let desc = '思路奢品三折场';
       let imgUrl = 'https://youwatch.oss-cn-beijing.aliyuncs.com/system/youwatch_logo.png';
       let data = {
         'title': name,
