@@ -3,12 +3,16 @@
     <scrollToTop :scTop="sctop" @click.native="goMyTop()" :style="{'position':'absolute','bottom': power>=0?'1.5rem':'0.5rem','right': '0.5rem'}"></scrollToTop>
     <ywBar v-if="isApp || true" type="shareBuyApp" :goodsId="goodsId" :goodsName="proName" :goodsImg="slides[0]" :shareBtnShow="false"></ywBar>
     <footer v-if="power>=0">
-      <div class="shadow"></div>
+      <!-- <div class="shadow"></div> -->
       <div class="btnBox">
         <template>
-          <ywBtn :class="{'no':!canClick || homeGoods=='1'||proPrice==-1 || totalStock<1}" class="cBtn cBtn-buy" :text="totalStock<1?'已售罄':'立即购买'"
+          <div class="kefu" v-clipboard:copy="message" v-clipboard:success="onCopy" v-clipboard:error="onError">
+            <img src="https://youwatch.oss-cn-beijing.aliyuncs.com/app/icon_kefu.png" alt="">
+            <p>客服</p>
+          </div>
+          <ywBtn :class="{'no':!canClick || homeGoods=='1'||proPrice==-1 || totalStock<1}" class="cBtn cBtn-buy" :text="totalStock<1?'已售罄':'立即下单'"
             @click.native="toBuy(goodsId,shopId)"></ywBtn>
-          <ywBtn :class="{'no':!canClick || homeGoods=='1'||proPrice==-1}" class="cBtn cBtn-ans" text="分享" @click.native="shareToImg(goodsId)"></ywBtn>
+          <ywBtn :class="{'no':!canClick || homeGoods=='1'||proPrice==-1}" class="cBtn cBtn-ans" text="立即推⼴" @click.native="shareToImg(goodsId)"></ywBtn>
         </template>
       </div>
     </footer>
@@ -136,7 +140,7 @@
 
 <script>
   import {
-    MaiShouGoodsDetail, //商品详情
+    maiShouGoodsDetail, //商品详情
     loadMyGoodsDetailForShare, //分享后的商品详情
     collect, //收藏
     cancelCollect, //取消收藏
@@ -172,6 +176,7 @@
         popupShow: false, //弹窗是否显示
         discount: '', //折扣
         rakeBackShow: '', //返佣
+        message: 'YOUWATCH-KEFU',
         countDownShow: true, //倒计时显示
         countDown: { //倒计时
           hours: 0,
@@ -288,12 +293,36 @@
         let thisPageUrl = this.pageUrl;
         return new Promise(function (resolve, reject) {
           if (thisPageUrl == 'goodsDetail_buy') {
-            resolve(MaiShouGoodsDetail(data));
+            resolve(maiShouGoodsDetail(data));
           }
           if (thisPageUrl == 'goodsDetHv') {
             resolve(loadMyGoodsDetailForShare(data));
           }
         });
+      },
+      // 复制成功
+      onCopy(e) {
+        let nostyle = 'linear-gradient(32deg,rgba(200,142,100,0.65) 0%,rgba(200,142,100,1) 100%)!important';
+        this.$confirm({
+          title: ' ',
+          content: '客服微信<' + this.message + '>已复制到剪贴板，快打开微信去添加吧~',
+          yesText: "取消",
+          noText: '去添加',
+          noStyle: {
+            "background": nostyle
+          },
+        }).then(res => {}).catch(err => {
+          let device = this.whichDevice();
+          if (device == "androidApp") {
+            window.Android.callWeChat();
+          } else if (device == "iosApp") {
+            window.webkit.messageHandlers.callWeChat.postMessage('');
+          }
+        });
+      },
+      // 复制失败
+      onError(e) {
+        this.toast(`复制失败`);
       },
       //多接口数据统一处理
       // dataHandle(res) { // let $this = this; // },
@@ -344,7 +373,7 @@
           path: '/orderFirm',
           query: {
             'goodsId': goodsId,
-            'origin':'buy'
+            'origin': 'buy'
           }
         });
       },
@@ -476,12 +505,12 @@
   }
 
   .cBtn-ans {
-    background: rgba(51, 51, 51, 1) !important;
+    background: linear-gradient(159deg, rgba(230, 193, 157, 1) 0%, rgba(200, 142, 100, 1) 100%) !important;
   }
 
   .cBtn-buy {
-    background: rgba(200, 142, 100, 1) !important;
-    margin-right: 0.2rem;
+    background: linear-gradient(160deg, rgba(98, 98, 98, 1) 0%, rgba(51, 51, 51, 1) 100%) !important;
+    /* margin-right: 0.2rem; */
   }
 
   .content {
@@ -612,7 +641,8 @@
     color: #999;
     margin-left: 0.1rem;
   }
-  .pro_price .bor-ra{
+
+  .pro_price .bor-ra {
     font-size: .24rem;
     font-family: PingFangSC-Regular;
     font-weight: 400;
@@ -716,17 +746,34 @@
     height: 1rem;
     background: #fff;
     display: flex;
-    justify-content: center;
     align-items: center;
   }
 
   footer .btnBox button {
     background-image: linear-gradient(-57deg, #fb6455 10%, #fe3d36 100%);
-    border-radius: 1rem;
-    width: 1.80rem;
-    height: .6rem;
-    line-height: 0.6rem;
+    /* border-radius: 1rem; */
+    /* width: 1.80rem; */
+    height: 100%;
+    line-height: 1rem;
     color: #fff;
+    width: 38.66%;
+  }
+
+  footer .btnBox .kefu {
+    text-align: center;
+    font-size: .20rem;
+    font-family: PingFangSC-Regular;
+    font-weight: 400;
+    color: rgba(51, 51, 51, 1);
+    flex: 1;
+  }
+
+  footer .btnBox .kefu img {
+    display: block;
+    width: 0.36rem;
+    height: 0.36rem;
+    margin: auto;
+    margin-bottom: 0.06rem;
   }
 
   .productClass {

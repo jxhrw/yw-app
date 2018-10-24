@@ -19,7 +19,7 @@
   .backTop {
     width: 1rem;
     height: 1rem;
-    background: url('../assets/imgs/iv_move_to_top.png') no-repeat center/contain;
+    background: url('https://youwatch.oss-cn-beijing.aliyuncs.com/app/iv_move_to_top.png') no-repeat center/contain;
     position: absolute;
     bottom: 0.5rem;
     right: 0.5rem;

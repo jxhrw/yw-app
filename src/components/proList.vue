@@ -20,7 +20,6 @@
 <script>
   // isShare 是否可分享（是否是app）
   // isSelf 是否是自个商家
-  import imgShare from '@/assets/imgs/icon_share2.png'
   export default {
     props: {
       items: {
@@ -44,7 +43,7 @@
     },
     data() {
       return {
-        imgShare: imgShare,
+        imgShare: 'https://youwatch.oss-cn-beijing.aliyuncs.com/app/icon_share2.png',
       }
     },
     methods: {

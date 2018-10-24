@@ -243,10 +243,10 @@ export default new Router({
         isBack: false,
       }
     },
-    //活动地址0929 -- 采访
+    //活动地址0921 -- 采访
     {
-      path: '/act0929',
-      component: resolve => { return require([ '@/views/activity_0929' ], resolve) },
+      path: '/act0921',
+      component: resolve => { return require([ '@/views/activity_0921' ], resolve) },
       meta: {
         keepAlive: true,
         isBack:false,
@@ -274,60 +274,6 @@ export default new Router({
     {
       path: '/act1023',
       component: resolve => { return require([ '@/views/activity_1023' ], resolve) },
-      meta: {
-        keepAlive: true,
-        isBack:false,
-      }
-    },
-    //活动地址0929
-    {
-      path: '/act0929',
-      component: resolve => { return require([ '@/views/activity_0929' ], resolve) },
-      meta: {
-        keepAlive: true,
-        isBack:false,
-      }
-    },
-    //活动地址1002
-    {
-      path: '/act1002',
-      component: resolve => { return require([ '@/views/activity_1002' ], resolve) },
-      meta: {
-        keepAlive: true,
-        isBack:false,
-      }
-    },
-    //活动地址1006
-    {
-      path: '/act1006',
-      component: resolve => { return require([ '@/views/activity_1006' ], resolve) },
-      meta: {
-        keepAlive: true,
-        isBack:false,
-      }
-    },
-    //活动地址1009
-    {
-      path: '/act1009',
-      component: resolve => { return require([ '@/views/activity_1009' ], resolve) },
-      meta: {
-        keepAlive: true,
-        isBack:false,
-      }
-    },
-    //活动地址1011
-    {
-      path: '/act1011',
-      component: resolve => { return require([ '@/views/activity_1011' ], resolve) },
-      meta: {
-        keepAlive: true,
-        isBack:false,
-      }
-    },
-    //活动地址1016
-    {
-      path: '/act1016',
-      component: resolve => { return require([ '@/views/activity_1016' ], resolve) },
       meta: {
         keepAlive: true,
         isBack:false,
@@ -393,6 +339,17 @@ export default new Router({
       path: '/logistics',
       component: resolve => {
         return require(['@/views/order_logistics'], resolve)
+      },
+      meta: {
+        keepAlive: true,
+        isBack: false,
+      }
+    },
+    //教程
+    {
+      path: '/course',
+      component: resolve => {
+        return require(['@/views/course'], resolve)
       },
       meta: {
         keepAlive: true,

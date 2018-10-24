@@ -75,7 +75,6 @@ export default (Vue) => {
   //打电话
   Vue.prototype.goTel = function (phone) {
     let device = this.whichDevice();
-    this.$alert(phone);
     if (device == "androidApp") {
       window.Android.getTel(phone.toString());
     } else {

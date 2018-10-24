@@ -3,7 +3,10 @@
     <ywBar :title="'物流详情'" type="white"></ywBar>
     <div class="content">
       <div class="gray"></div>
-      <div class="baseInfo">
+      <div class="baseInfo" v-if="showNoTips" style="text-align:center;display: block;">
+        暂无物流信息
+      </div>
+      <div class="baseInfo" v-if="!showNoTips">
         <img v-lazy="totalData.logo" :key="totalData.logo" class="base_left" alt="">
         <div class="base_right">
           <p>物流公司：
@@ -36,6 +39,7 @@
 
 <script>
   import {
+    logisticsDetail,
     maishouLogisticsDetail
   } from '../api/api'
   export default {
@@ -45,11 +49,12 @@
         items: [],
         expressName: '',
         mailNo: '',
+        showNoTips:false
       }
     },
     methods: {
       getData(data) {
-        maishouLogisticsDetail(data).then(res => {
+        this.dataInterface(data).then(res => {
           let $this = this;
           this.ajaxResult(res, function () {
             $this.totalData = res.data.body;
@@ -66,6 +71,18 @@
         this.items = [];
         this.expressName = '';
         this.mailNo = '';
+        this.showNoTips = false;
+      },
+      //页面接口
+      dataInterface(data) {
+        let thisPageUrl = this.$route.query.type;
+        return new Promise(function (resolve, reject) {
+          if (thisPageUrl == 'tuihuo') {
+            resolve(logisticsDetail(data));
+          } else {
+            resolve(maishouLogisticsDetail(data));
+          }
+        });
       },
     },
     mounted() {
@@ -73,9 +90,12 @@
     },
     activated() {
       this.dataInit();
-      this.getData({
-        'mailNo': this.$route.query.mailNo
-      });
+      this.showNoTips = !this.$route.query.mailNo;
+      if (this.$route.query.mailNo) {
+        this.getData({
+          'mailNo': this.$route.query.mailNo
+        });
+      }
     },
   };
 

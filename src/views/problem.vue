@@ -19,7 +19,7 @@
     <footer>
       <div class="gradient"></div>
       <div class="footer">
-        <a class="footBtn" @click="goTel(4000116008)">联系客服</a>
+        <a class="footBtn" :class="origin" @click="goTel('4000116008')">联系客服</a>
         <ywBtn text='添加微信' class="footBtn red" :class="origin" v-clipboard:copy="message" v-clipboard:success="onCopy" v-clipboard:error="onError"></ywBtn>
       </div>
     </footer>
@@ -27,7 +27,7 @@
     <div v-show="popupShow" class="popup">
       <div class="popupContent" @click="stop">
         <p class="txt">复制后黏贴到微信
-          <br> 〈 youwatchyunying 〉
+          <br> 〈 {{origin=='buy'?'YOUWATCH-KEFU':'youwatchyunying1'}} 〉
           <br> 添加客服微信
         </p>
         <p class="btn" @click="popupShow=false">关闭</p>
@@ -104,11 +104,13 @@
       },
       // 复制成功
       onCopy(e) {
+        let nostyle = this.origin=='buy'?'linear-gradient(32deg,rgba(200,142,100,0.65) 0%,rgba(200,142,100,1) 100%)!important':'';
         this.$confirm({
             title: ' ',
-            content: '客服微信<youwatchyunying>已复制到剪贴板，快打开微信去添加吧~',
+            content: '客服微信<'+this.message+'>已复制到剪贴板，快打开微信去添加吧~',
             yesText: "取消",
-            noText: '去添加'
+            noText: '去添加',
+            noStyle:{"background":nostyle},
           }).then(res => {}).catch(err => {
             let device = this.whichDevice();
             if (device == "androidApp") {
@@ -128,6 +130,7 @@
     },
     activated() {
       this.origin = this.$route.query.origin;
+      this.message = this.origin=='buy'?'YOUWATCH-KEFU':'youwatchyunying';
       this.dataInit();
       let obj = {};
       if('buy'==this.origin){
@@ -235,6 +238,10 @@
     font-family: PingFangSC-Medium;
     font-size: .28rem;
     color: #333333;
+  }
+  
+  .footBtn.buy{
+    background: #fbede3;
   }
 
   .footBtn.red{

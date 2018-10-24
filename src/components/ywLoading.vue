@@ -4,7 +4,6 @@
   </div>
 </template>
 <script>
-  import iconLoading from '@/assets/imgs/loading.gif'
   export default {
     props: {
       loading: {
@@ -18,7 +17,7 @@
     },
     data() {
       return {
-        iconLoading: iconLoading,
+        iconLoading: 'https://youwatch.oss-cn-beijing.aliyuncs.com/app/loading.gif',
       }
     }
   }

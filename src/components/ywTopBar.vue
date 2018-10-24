@@ -226,11 +226,11 @@
   }
 
   .iconShareBtn1 {
-    background-image: url('../assets/imgs/icon_forward.png');
+    background-image: url('https://youwatch.oss-cn-beijing.aliyuncs.com/app/icon_forward.png');
   }
 
   .iconShareBtn2 {
-    background-image: url('../assets/imgs/icon_share.png');
+    background-image: url('https://youwatch.oss-cn-beijing.aliyuncs.com/app/icon_share.png');
   }
 
   .iconShareBtn3 {

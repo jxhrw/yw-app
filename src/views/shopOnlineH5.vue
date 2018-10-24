@@ -18,7 +18,7 @@
           <div class="headerBg" id="headerBg"></div>
           <div class="shopInfo" id="shopInfo">
             <div class="shopFlex">
-              <div class="logo" id="logo" :style="{'background-image':'url('+shopInfoTxt.fullLogoUrl+')'}"></div>
+              <img class="logo" id="logo" v-lazy="shopInfoTxt.fullLogoUrl" :key="shopInfoTxt.fullLogoUrl" />
               <div class="shopTxt">
                 <h1>
                   <a class="phone" @click="goTel(shopInfoTxt.linkPhone)">
@@ -99,9 +99,7 @@
         placeholder: "\ue6d1 搜索", //&#xe6d1;
         fewTimes: 0, //页面第几次进入，刷新或第一次会在mounted里重置,其余次数获取scrollTop使页面回到离开位置
         pageInfo: {}, //分页信息
-        shopInfoTxt: {
-          fullLogoUrl:'https://youwatch.oss-cn-beijing.aliyuncs.com/app/img_default.png'
-        }, //店铺信息
+        shopInfoTxt: {}, //店铺信息
         isLoading: false, //是否正在请求中
         refreshing: false, //下拉loading
         loading: false, //底部loading
@@ -432,7 +430,7 @@
 
   .headerBg {
     height: 2.2rem;
-    background: url("../assets/imgs/bg_shopOnline.png") no-repeat bottom/cover;
+    background: url("https://youwatch.oss-cn-beijing.aliyuncs.com/app/bg_shopOnline.png") no-repeat bottom/cover;
   }
 
   .top-bar {
@@ -444,7 +442,7 @@
   }
 
   .top-bar.show {
-    background: url("../assets/imgs/bg_shopOnline.png") no-repeat bottom/cover;
+    background: url("https://youwatch.oss-cn-beijing.aliyuncs.com/app/bg_shopOnline.png") no-repeat bottom/cover;
   }
 
   .topBtnLeft,
@@ -458,12 +456,12 @@
 
   .topBtnLeft {
     margin-left: .3rem;
-    background-image: url('../assets/imgs/icon_forward.png');
+    background-image: url('https://youwatch.oss-cn-beijing.aliyuncs.com/app/icon_forward.png');
   }
 
   .topBtnRight {
     margin-right: .3rem;
-    background-image: url('../assets/imgs/icon_share.png');
+    background-image: url('https://youwatch.oss-cn-beijing.aliyuncs.com/app/icon_share.png');
   }
 
   .searchForm {

@@ -159,6 +159,7 @@
 
   .wc-popup {
     border-radius: 4px !important;
+    background-color: #ffffff;
   }
 
   .wc-popup-inner {

@@ -139,7 +139,7 @@
   .my_address.buy::after{
     content:'';
     position: absolute;
-    height: 0.06rem;
+    height: 0.07rem;
     width: 100%;
     bottom: 0;
     left: 0;

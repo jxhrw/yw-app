@@ -13,7 +13,7 @@
           <p class="bondDesc">该保证金为有表门店终端的设备押金，若退还设备，该保证金将退还。</p>
         </li>
         <template v-for="(item,index) in payMethodList">
-          <li v-if="!('buy'==origin && ('balance_pay'==item.code || 'wechat_pay'==item.code))" :key="index" :class="[item.code,item.code==paySelected?'select':'',item.description && item.description.indexOf('余额不足')>-1?'no':'']"
+          <li v-if="!('buy'==origin && ('balance_pay'==item.code || 'wechat_pay1'==item.code))" :key="index" :class="[item.code,item.code==paySelected?'select':'',item.description && item.description.indexOf('余额不足')>-1?'no':'']"
             @click="payChosen(item.code)">
             <div class="pay-single">
               <h3>{{item.name}}</h3>
@@ -68,11 +68,13 @@
       },
       //返回执行
       sureBack() {
+        let nostyle = this.origin=='buy'?'linear-gradient(32deg,rgba(200,142,100,0.65) 0%,rgba(200,142,100,1) 100%)!important':'';
         this.$confirm({
           title: '确认要放弃付款？',
           content: '订单会保留一段时间，请尽快支付',
           yesText: "确认离开",
-          noText: '继续支付'
+          noText: '继续支付',
+          noStyle:{"background":nostyle},
         }).then(res => {
           this.toBack();
           console.log("13");
@@ -125,7 +127,7 @@
           this.ajaxResult(res, function () {
             $this.payMethodList = res.data.body;
             if ($this.payMethodList.length > 0) {
-              $this.paySelected = $this.payMethodList[0].code;
+              $this.paySelected = $this.origin!="buy"?$this.payMethodList[0].code:'ali_pay';
             }
           });
         }).catch((err) => {

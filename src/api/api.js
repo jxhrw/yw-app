@@ -63,8 +63,8 @@ export const loadGoodsInfo = pams => {
 
 
 //商品详情-买手app
-export const MaiShouGoodsDetail = pams => {
-  return apiToken.get(`${base}/goods-warehouse/distributionGoods/MaiShouGoodsDetail`, {
+export const maiShouGoodsDetail = pams => {
+  return apiToken.get(`${base}/goods-warehouse/distributionGoods/maiShouGoodsDetail`, {
     "params": pams
   })
 };
@@ -199,7 +199,7 @@ export const addReceiverAddress = pams => {
 
 //修改收货地址
 export const editReceiverAddress = pams => {
-  return apiJsonToken.put(`${base}/fund-account/deal/editReceiverAddress`, pams)
+  return apiJsonToken.post(`${base}/fund-account/deal/editReceiverAddress`, pams)
 };
 
 //提交订单
@@ -275,6 +275,13 @@ export const startOrStopUse = pams => {
 //物流信息
 export const maishouLogisticsDetail = pams => {
   return apiToken.get(`${base}/fund-account/olderMain/maishouLogisticsDetail`, {
+    "params": pams
+  })
+};
+
+//物流信息--退货
+export const logisticsDetail = pams => {
+  return apiToken.get(`${base}/fund-account/olderMain/logisticsDetail`, {
     "params": pams
   })
 };

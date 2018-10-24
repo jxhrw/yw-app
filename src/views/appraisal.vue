@@ -43,7 +43,6 @@
       },
       //分享网页
       shareUrl() {
-        debugger
         let device = this.whichDevice();
         let url = window.location.href;
         let name = '有表鉴定';

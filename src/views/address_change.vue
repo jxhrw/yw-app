@@ -127,13 +127,13 @@
       //返回执行
       sureBack() {
         if (this.isChange) {
-          let bg = this.origin=='buy'?'!important':''
+          let nostyle = this.origin=='buy'?'linear-gradient(32deg,rgba(200,142,100,0.65) 0%,rgba(200,142,100,1) 100%)!important':'';
           this.$confirm({
             title: '',
             content: '退出后将丢失您当前编辑的信息，是否退出？',
             yesText: "退出",
             noText: '取消',
-            noStyle:{"background":'linear-gradient(32deg,rgba(200,142,100,0.65) 0%,rgba(200,142,100,1) 100%)'+bg},
+            noStyle:{"background":nostyle},
           }).then(res => {
             this.toBack();
           }).catch(err => {});

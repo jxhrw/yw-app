@@ -26,9 +26,6 @@
   //isUse 属性是否禁用为布尔值
   //iconUrl 按钮的icon
   //sortType 排序按钮的类型，0默认，1向上，2向下
-  import iconUrlOne from '@/assets/imgs/icon_price_filter_one.png'
-  import iconUrlTwo from '@/assets/imgs/icon_price_filter_two.png'
-  import iconUrlThree from '@/assets/imgs/icon_price_filter_three.png'
   export default {
     props: {
       type: {
@@ -58,9 +55,9 @@
     },
     data() {
       return {
-        iconUrl1: iconUrlThree,
-        iconUrl2: iconUrlTwo,
-        iconUrl0: iconUrlOne,
+        iconUrl1: 'https://youwatch.oss-cn-beijing.aliyuncs.com/app/icon_price_filter_three.png',
+        iconUrl2: 'https://youwatch.oss-cn-beijing.aliyuncs.com/app/icon_price_filter_two.png',
+        iconUrl0: 'https://youwatch.oss-cn-beijing.aliyuncs.com/app/icon_price_filter_one.png',
       }
     }
   }
