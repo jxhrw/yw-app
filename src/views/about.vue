@@ -5,7 +5,7 @@
       <div class="flex">
         <div class="icon"></div>
         <h6>有表商家版</h6>
-        <h6>v1.2.0</h6>
+        <h6>{{vs}}</h6>
       </div>
       <ul class="list">
         <li @click="goPolicy">
@@ -25,16 +25,16 @@
   export default {
     data() {
       return {
-
+        vs: 'v1.2.1'
       }
     },
     methods: {
-      goPolicy(){
+      goPolicy() {
         this.$router.push({
           path: '/policy'
         });
       },
-      goQrcode(){
+      goQrcode() {
         this.$router.push({
           path: '/qrcode'
         });
@@ -44,7 +44,12 @@
 
     },
     activated() {
-
+      let device = this.whichDevice();
+      if (device == "androidApp") {
+        this.vs = 'v1.2.1';
+      } else if (device == "iosApp") {
+        this.vs = 'v1.2.2';
+      }
     },
   };
 
