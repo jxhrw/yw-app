@@ -5,7 +5,7 @@
       <div class="flex">
         <div class="icon"></div>
         <h6>有表商家版</h6>
-        <h6>{{vs}}</h6>
+        <h6>{{version || vs}}</h6>
       </div>
       <ul class="list">
         <li @click="goPolicy">
@@ -25,6 +25,7 @@
   export default {
     data() {
       return {
+        version: '',
         vs: 'v1.2.1'
       }
     },
@@ -38,10 +39,14 @@
         this.$router.push({
           path: '/qrcode'
         });
-      }
+      },
+      //JS接收OC传值的代码
+      getVersion(str) {
+        this.version = str;
+      },
     },
     mounted() {
-
+      window.getVersion = this.getVersion;
     },
     activated() {
       let device = this.whichDevice();
