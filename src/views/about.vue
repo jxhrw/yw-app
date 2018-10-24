@@ -5,7 +5,7 @@
       <div class="flex">
         <div class="icon"></div>
         <h6>有表商家版</h6>
-        <h6>{{version || 'v1.2.2'}}</h6>
+        <h6>{{version || vs }}</h6>
       </div>
       <ul class="list">
         <li @click="goPolicy">
@@ -26,6 +26,7 @@
     data() {
       return {
         version: '',
+        vs: 'v1.2.1'
       }
     },
     methods: {
@@ -48,7 +49,12 @@
       window.getVersion = this.getVersion;
     },
     activated() {
-
+      let device = this.whichDevice();
+      if (device == "androidApp") {
+        this.vs = 'v1.2.1';
+      } else if (device == "iosApp") {
+        this.vs = 'v1.2.2';
+      }
     },
   };
 
