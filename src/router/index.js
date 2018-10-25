@@ -356,6 +356,17 @@ export default new Router({
         isBack: false,
       }
     },
+    //教程
+    {
+      path: '/promise',
+      component: resolve => {
+        return require(['@/views/course_1'], resolve)
+      },
+      meta: {
+        keepAlive: true,
+        isBack: false,
+      }
+    },
     //财务管理
     // {
     //   path: '/financeManage',

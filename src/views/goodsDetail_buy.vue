@@ -44,7 +44,7 @@
       </div>
       <div class="cutApart"></div>
       <div class="imgBox">
-        <img src="https://youwatch.oss-cn-beijing.aliyuncs.com/app/service.png" alt="">
+        <img src="https://youwatch.oss-cn-beijing.aliyuncs.com/app/service.png" alt="" @click="toPromise">
       </div>
       <div class="cutApart"></div>
       <div class="imgBox">
@@ -108,7 +108,7 @@
           </template>
         </div>
       </div>
-      <div class="scrImg">
+      <div class="scrImg" v-if="false">
         <img class="img" src="https://youwatch.oss-cn-beijing.aliyuncs.com/app/1.png" alt="">
         <img class="img" src="https://youwatch.oss-cn-beijing.aliyuncs.com/app/2.png" alt="">
         <img class="img" src="https://youwatch.oss-cn-beijing.aliyuncs.com/app/3.png" alt="">
@@ -323,6 +323,14 @@
       // 复制失败
       onError(e) {
         this.toast(`复制失败`);
+      },
+      toPromise(){
+        this.$router.push({
+          path: '/promise',
+          query: {
+            'type': '1',
+          }
+        });
       },
       //多接口数据统一处理
       // dataHandle(res) { // let $this = this; // },
@@ -912,11 +920,11 @@
   }
 
   #goodsDetail .productClass img {
-    width: 7.5rem !important;
+    width: 100% !important;
     height: auto !important;
     margin-top: 0.1rem;
     margin-bottom: 0.1rem;
-    margin-left: -0.3rem;
+    /* margin-left: -0.3rem; */
   }
 
   #goodsDetail .productClass table {

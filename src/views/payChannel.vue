@@ -127,7 +127,8 @@
           this.ajaxResult(res, function () {
             $this.payMethodList = res.data.body;
             if ($this.payMethodList.length > 0) {
-              $this.paySelected = $this.origin!="buy"?$this.payMethodList[0].code:'ali_pay';
+              $this.paySelected = $this.payMethodList[0].code;
+              // $this.paySelected = $this.origin!="buy"?$this.payMethodList[0].code:'ali_pay';
             }
           });
         }).catch((err) => {
