@@ -1,6 +1,6 @@
 <template>
   <div id="course" style="background:#000;">
-    <ywBar :title="'服务承诺'" v-if="showBar"></ywBar>
+    <ywBar :title="'YOUWATCH服务承诺'" v-if="showBar"></ywBar>
     <div class="content" :style="{'padding-top':showBar?'0.9rem':'0'}">
       <img src="https://youwatch.oss-cn-beijing.aliyuncs.com/app/activity/promise/p_01.jpg" alt="">
       <img src="https://youwatch.oss-cn-beijing.aliyuncs.com/app/activity/promise/p_02.jpg" alt="">
