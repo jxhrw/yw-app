@@ -102,6 +102,7 @@
       <div class="proImg">
         <h6 style="padding-left:.3rem;padding-right:.3rem;">商品详情</h6>
         <div>
+          <img v-if="'全新'!=propsName.new_old_level" src="https://youwatch.oss-cn-beijing.aliyuncs.com/app/level.png" alt="">
           <div class="productClass" v-if="productDesc" v-html="productDesc">{{productDesc}}</div>
           <template v-for='(item,index) in otherImageUrlList'>
             <img :src="item" alt="" :key="index">
@@ -302,6 +303,9 @@
       },
       // 复制成功
       onCopy(e) {
+        // this.goTel('4000116008');
+        // return false;
+
         let nostyle = 'linear-gradient(32deg,rgba(200,142,100,0.65) 0%,rgba(200,142,100,1) 100%)!important';
         this.$confirm({
           title: ' ',
@@ -324,7 +328,7 @@
       onError(e) {
         this.toast(`复制失败`);
       },
-      toPromise(){
+      toPromise() {
         this.$router.push({
           path: '/promise',
           query: {

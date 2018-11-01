@@ -133,6 +133,17 @@ export default new Router({
         isBack: false,
       }
     },
+    //消息详情
+    {
+      path: '/noticeDetailFra',
+      component: resolve => {
+        return require(['@/views/noticeDetailIFrame'], resolve)
+      },
+      meta: {
+        keepAlive: true,
+        isBack: false,
+      }
+    },
     //帮助中心
     {
       path: '/problem',
@@ -261,19 +272,37 @@ export default new Router({
         isBack:false,
       }
     },
-    //活动地址1019
+    //活动地址1029 -- 采访
     {
-      path: '/act1019',
-      component: resolve => { return require([ '@/views/activity_1019' ], resolve) },
+      path: '/act1029',
+      component: resolve => { return require([ '@/views/activity_1029' ], resolve) },
       meta: {
         keepAlive: true,
         isBack:false,
       }
     },
-    //活动地址1023
+    //活动地址1030
     {
-      path: '/act1023',
-      component: resolve => { return require([ '@/views/activity_1023' ], resolve) },
+      path: '/act1030',
+      component: resolve => { return require([ '@/views/activity_1030' ], resolve) },
+      meta: {
+        keepAlive: true,
+        isBack:false,
+      }
+    },
+    //活动地址1102
+    {
+      path: '/act1102',
+      component: resolve => { return require([ '@/views/activity_1102' ], resolve) },
+      meta: {
+        keepAlive: true,
+        isBack:false,
+      }
+    },
+    //活动地址1026
+    {
+      path: '/act1026',
+      component: resolve => { return require([ '@/views/activity_1026' ], resolve) },
       meta: {
         keepAlive: true,
         isBack:false,
@@ -361,6 +390,39 @@ export default new Router({
       path: '/promise',
       component: resolve => {
         return require(['@/views/course_1'], resolve)
+      },
+      meta: {
+        keepAlive: true,
+        isBack: false,
+      }
+    },
+    //寻找合伙人
+    {
+      path: '/find',
+      component: resolve => {
+        return require(['@/views/course_2'], resolve)
+      },
+      meta: {
+        keepAlive: true,
+        isBack: false,
+      }
+    },
+    //寻找合伙人
+    {
+      path: '/invite',
+      component: resolve => {
+        return require(['@/views/course_3'], resolve)
+      },
+      meta: {
+        keepAlive: true,
+        isBack: false,
+      }
+    },
+    //新手引导
+    {
+      path: '/guide',
+      component: resolve => {
+        return require(['@/views/course_4'], resolve)
       },
       meta: {
         keepAlive: true,

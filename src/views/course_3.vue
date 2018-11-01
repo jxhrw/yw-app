@@ -1,19 +1,18 @@
 <template>
   <div id="course" style="background:#000;">
     <div class="content">
-      <!-- <img src="https://youwatch.oss-cn-beijing.aliyuncs.com/app/activity/course/01.jpg" alt="">
+      <img src="https://youwatch.oss-cn-beijing.aliyuncs.com/app/activity/course/01.jpg" alt="">
       <img src="https://youwatch.oss-cn-beijing.aliyuncs.com/app/activity/course/02.jpg" alt="">
       <img src="https://youwatch.oss-cn-beijing.aliyuncs.com/app/activity/course/03.jpg" alt="">
       <img src="https://youwatch.oss-cn-beijing.aliyuncs.com/app/activity/course/04.jpg" alt="">
       <img src="https://youwatch.oss-cn-beijing.aliyuncs.com/app/activity/course/05.jpg" alt="">
-      <img src="https://youwatch.oss-cn-beijing.aliyuncs.com/app/activity/course/06.jpg" alt=""> -->
-      <img src="https://youwatch.oss-cn-beijing.aliyuncs.com/app/activity/find/find.jpg" alt="">
+      <img src="https://youwatch.oss-cn-beijing.aliyuncs.com/app/activity/course/06.jpg" alt="">
     </div>
-    <footer>
+    <!-- <footer>
       <div class="footer">
         <ywBtn text='下载教程' class="footBtn red" @click.native="downs"></ywBtn>
       </div>
-    </footer>
+    </footer> -->
   </div>
 </template>
 
@@ -56,7 +55,7 @@
     height: 100%;
     overflow: auto;
     -webkit-overflow-scrolling: touch;
-    padding: 0 0 1rem 0;
+    padding: 0 0 0 0;
   }
 
   img {

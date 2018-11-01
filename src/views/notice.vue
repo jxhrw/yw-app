@@ -8,7 +8,7 @@
           <mu-load-more :refreshing="refreshing" :loading="loading" @load="load">
             <ul class="noticeUl">
               <template v-for="(item,index) in notices">
-                <li @click="goDetail(item.id,index)" :key="index">
+                <li @click="goDetail(item.id,index,item.afficheCategoryId,item.askOrTellPriceUrl)" :key="index">
                   <!-- <template v-if="listData.category=='41'">
                     <div class="flex">
                       <h6>询价单通知<span v-if="item.isRead==0">（未读）</span></h6>
@@ -96,17 +96,26 @@
             }
           });
         }).catch((err) => {
-          this.axiosCatch(err,'on');
+          this.axiosCatch(err, 'on');
         });
       },
-      goDetail(id, index) {
+      goDetail(id, index, afficheCategoryId, askOrTellPriceUrl) {
         this.notices[index].isRead = 1; //已读
-        this.$router.push({
-          path: '/noticeDetail',
-          query: {
-            id: id
-          }
-        });
+        if (askOrTellPriceUrl && (afficheCategoryId == "4" || afficheCategoryId == "5")) {
+          this.$router.push({
+            path: '/noticeDetailFra',
+            query: {
+              url: encodeURIComponent(askOrTellPriceUrl)
+            }
+          });
+        } else {
+          this.$router.push({
+            path: '/noticeDetail',
+            query: {
+              id: id
+            }
+          });
+        }
       },
       //下拉加载
       load() {
@@ -165,9 +174,6 @@
           this.$refs.contentRef.scrollTop = sessionStorage.getItem("noticeScrollTop");
         }
       }
-
-
-
     },
   }
 
