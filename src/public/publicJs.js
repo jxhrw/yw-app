@@ -201,6 +201,14 @@ export default (Vue) => {
     });
   }
 
-
+  //纠错
+  Vue.prototype.errorRecovery = function (goodsId) {
+    let device = this.whichDevice();
+    if (device == "androidApp") {
+      window.Android.errorRecovery(goodsId);
+    } else if (device == "iosApp") {
+      window.webkit.messageHandlers.errorRecovery.postMessage({'goodsId':goodsId});
+    }
+  }
 
 };

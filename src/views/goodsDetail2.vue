@@ -113,6 +113,7 @@
             <div class="right">{{propsName.manufacturePlace || '—'}}</div>
           </li>
         </ul>
+        <!-- <ywBtn v-if="proPrice!=-1 && pageUrl!='goodsDetHv'" text='信息不靠谱？来纠错' class="btnShop" @click.native="toRecovery(goodsId)"></ywBtn> -->
       </div>
       <div class="shopInfo">
         <h6>商家信息</h6>
@@ -382,6 +383,10 @@
       //登录
       toSignIn() {
         this.appSignIn();
+      },
+      //纠错
+      toRecovery(id){
+        this.errorRecovery(id);
       },
       goMyTop() {
         this.goTop(this.$refs.content, 0);
@@ -689,6 +694,8 @@
     color: #000000;
     margin: auto;
     margin-top: .4rem;
+    border-color: #EA3C3C;
+    color: #EA3C3C;
   }
 
   h6 {

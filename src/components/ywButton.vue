@@ -1,5 +1,5 @@
 <template>
-  <button v-if='type=="default"' class="btn-default" :class="{active:isActive}"><span class="btn-default-span" style="margin-top:1px;">{{text}}</span></button>
+  <button v-if='type=="default"' class="btn-default" :class="{active:isActive}"><span class="btn-default-span" style="margin-top:0px;">{{text}}</span></button>
   <button v-else-if='type=="drop-down"' class="btn-drop-down" :class="{active:isActive}">
     {{text}}
     <span></span>
