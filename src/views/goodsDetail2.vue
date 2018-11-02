@@ -113,7 +113,7 @@
             <div class="right">{{propsName.manufacturePlace || '—'}}</div>
           </li>
         </ul>
-        <!-- <ywBtn v-if="proPrice!=-1 && pageUrl!='goodsDetHv'" text='信息不靠谱？来纠错' class="btnShop" @click.native="toRecovery(goodsId)"></ywBtn> -->
+        <ywBtn v-if="proPrice!=-1 && pageUrl!='goodsDetHv'" text='信息不靠谱？来纠错' class="btnShop" @click.native="toRecovery(goodsId)"></ywBtn>
       </div>
       <div class="shopInfo">
         <h6>商家信息</h6>

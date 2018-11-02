@@ -1,6 +1,6 @@
 <template>
   <div id="course" style="background:#000;">
-    <!-- <div v-if="isApp " class="topBtnRight" @click="shareUrl()"></div> -->
+    <div v-if="isApp " class="topBtnRight" @click="shareUrl()"></div>
     <div class="content">
       <img src="https://youwatch.oss-cn-beijing.aliyuncs.com/app/activity/find/find.PNG" alt="">
     </div>
