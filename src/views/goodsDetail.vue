@@ -28,8 +28,21 @@
         </ul>
       </div>
       <div class="proAttr">
+        <h6>附件信息</h6>
+        <ul>
+          <li>
+            <div class="left">附件</div>
+            <div class="right">{{attachmentShow || '—'}}</div>
+          </li>
+        </ul>
+      </div>
+      <div class="proAttr">
         <h6>商品属性</h6>
         <ul>
+          <li>
+            <div class="left">表径</div>
+            <div class="right">{{propsName.biaojing || '—'}}</div>
+          </li>
           <li>
             <div class="left">机芯类型</div>
             <div class="right">{{propsName.jixinleixing || '—'}}</div>
@@ -86,35 +99,6 @@
         </ul>
         <!-- <ywBtn text='查看商家' class="btnShop" @click.native="toShop()"></ywBtn> -->
       </div>
-      <!-- <div class="baseInfo">
-      <h6>基本参数</h6>
-      <ul>
-        <li>
-          <div class="left">品牌</div>
-          <div class="right">{{baseInfo.brand}}</div>
-        </li>
-        <li>
-          <div class="left">系列</div>
-          <div class="right">{{baseInfo.series}}</div>
-        </li>
-        <li>
-          <div class="left">型号</div>
-          <div class="right">{{baseInfo.model}}</div>
-        </li>
-        <li>
-          <div class="left">序号</div>
-          <div class="right">{{baseInfo.cnName}}</div>
-        </li>
-        <li>
-          <div class="left">上市时间</div>
-          <div class="right">{{baseInfo.marketTime}}</div>
-        </li>
-        <li>
-          <div class="left">产地</div>
-          <div class="right">{{baseInfo.address}}</div>
-        </li>
-      </ul>
-    </div> -->
       <div class="proImg">
         <h6 style="padding-left:.3rem;padding-right:.3rem;">商品详情</h6>
         <div>
@@ -155,6 +139,7 @@
         isApp: true, //是否处于有表app里
         productDesc: '', //商品描述
         newOldLevel:{},//新旧程度
+        attachmentShow:'',//附件信息
         propsName:{},//商品属性
         swiperOption: {
           loop: true,
@@ -183,6 +168,7 @@
             $this.goodsId = res.data.body.id;
             $this.productDesc = res.data.body.productDesc;
             $this.newOldLevel = res.data.body.newOldLevel;
+            $this.attachmentShow = res.data.body.attachmentShow;
             $this.propsName = res.data.body.propsName;
             $this.propsName.manufacturePlace = res.data.body.manufacturePlace;
             // this.baseInfo = {
@@ -209,6 +195,9 @@
         this.otherImageUrlList = [];
         this.sctop = false;
         this.propsName = {};
+        this.productDesc = '';
+        this.newOldLevel = {};
+        this.attachmentShow = '';
       },
       //询价
       askPrice(goodsId, shopId) {

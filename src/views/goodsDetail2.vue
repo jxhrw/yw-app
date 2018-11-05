@@ -1,7 +1,7 @@
 <template>
   <div id="goodsDetail">
     <scrollToTop :scTop="sctop" @click.native="goMyTop()" :style="{'position':'absolute','bottom': power>=0?'1.5rem':'0.5rem','right': '0.5rem'}"></scrollToTop>
-    <ywBar v-if="isApp" type="share" :goodsId="goodsId" :goodsName="proName" :goodsImg="slides[0]" :shareBtnShow="false"></ywBar>
+    <ywBar v-if="isApp" type="shareWhite" :goodsId="goodsId" :goodsName="proName" :goodsImg="slides[0]" :shareBtnShow="false || true"></ywBar>
     <footer v-if="power>=0">
       <div class="shadow"></div>
       <div class="btnBox">
@@ -21,7 +21,7 @@
       </div>
     </footer>
 
-    <div class="content" ref="content">
+    <div class="content" ref="content" :style="{'padding-top':isApp?'0.9rem':'0'}">
       <div class="banner">
         <div class='swiperImg' v-if="slides.length==1" :style="{'background-image':'url('+slides[0]+')'}"></div>
         <swiper class='swiper' v-if="slides.length>1" :options="swiperOption">
@@ -31,6 +31,7 @@
           <!-- Optional controls -->
           <div class="swiper-pagination" slot="pagination"></div>
         </swiper>
+        <p class="shy" v-if="shyShow">{{scanNum}}位同行浏览过该商品，其他{{currentScanNum}}人正在浏览</p>
       </div>
       <div class="rush_buy" v-if="pageUrl=='goodsDetRush' && '{}'!=JSON.stringify(rushBuyGoodsItemVO)">
         <div class="rb_price">
@@ -74,8 +75,21 @@
         </ul>
       </div>
       <div class="proAttr">
+        <h6>附件信息</h6>
+        <ul>
+          <li>
+            <div class="left">附件</div>
+            <div class="right">{{attachmentShow || '—'}}</div>
+          </li>
+        </ul>
+      </div>
+      <div class="proAttr">
         <h6>商品属性</h6>
         <ul>
+          <li>
+            <div class="left">表径</div>
+            <div class="right">{{propsName.biaojing || '—'}}</div>
+          </li>
           <li>
             <div class="left">机芯类型</div>
             <div class="right">{{propsName.jixinleixing || '—'}}</div>
@@ -183,11 +197,15 @@
         canClick: true, //按钮是否可点击
         productDesc: '', //商品描述
         newOldLevel: {}, //新旧程度
+        attachmentShow:'',//附件信息
         goodsStock: 1, //商品库存
         homeGoods: 0, //自家商品，0不是自家，1是自家
         isCollect: null, //该商品是否收藏，0未收藏，1已收藏，null没有收藏功能
         propsName: {}, //商品属性
         power: -1, //权限，-1都隐藏，0都出现，1询价单个出现，2购买单个出现
+        shyShow:false,//历史浏览数&当前浏览数显示隐藏
+        scanNum:'',//历史浏览数
+        currentScanNum:'',//当前浏览数
         countDownShow: true, //倒计时显示
         countDown: { //倒计时
           hours: 0,
@@ -220,12 +238,18 @@
             $this.goodsId = res.data.body.id;
             $this.productDesc = res.data.body.productDesc;
             $this.newOldLevel = res.data.body.newOldLevel;
+            $this.attachmentShow = res.data.body.attachmentShow;
             $this.goodsStock = res.data.body.goodsStock;
             $this.homeGoods = res.data.body.homeGoods;
             $this.isCollect = res.data.body.isCollect;
             $this.propsName = res.data.body.propsName;
             $this.propsName.manufacturePlace = res.data.body.manufacturePlace;
+            $this.scanNum = res.data.body.scanNum;
+            $this.currentScanNum = res.data.body.currentScanNum;
+            $this.shyShow = $this.scanNum&$this.currentScanNum?true:false;
             $this.rushBuyGoodsItemVO = res.data.body.rushBuyGoodsItemVO || {};
+            setTimeout(()=>{$this.shyShow = false;},2000);
+
             if ($this.pageUrl == 'goodsDetail2') {
               $this.proPrice = res.data.body.shopPurchasePrice;
             }
@@ -233,7 +257,6 @@
               $this.proPrice = res.data.body.retailPrice || res.data.body.salePrice;
             }
             if ($this.pageUrl == 'goodsDetRush') {
-
               if ('{}' != JSON.stringify($this.rushBuyGoodsItemVO)) {
                 $this.rushBuyStatus = $this.rushBuyGoodsItemVO.activityStatus;
                 $this.postRushBuyStatus($this.rushBuyStatus);
@@ -335,10 +358,14 @@
         this.canClick = true;
         this.productDesc = '';
         this.newOldLevel = {};
+        this.attachmentShow = '';
         this.goodsStock = 1;
         this.homeGoods = 0;
         this.isCollect = null;
         // this.power = -1;
+        this.shyShow = false;
+        this.scanNum = '';
+        this.currentScanNum = '';
         this.countDownShow = true;
         this.propsName = {};
       },
@@ -385,7 +412,7 @@
         this.appSignIn();
       },
       //纠错
-      toRecovery(id){
+      toRecovery(id) {
         this.errorRecovery(id);
       },
       goMyTop() {
@@ -559,6 +586,7 @@
     width: 100%;
     margin: auto;
     min-height: 7.5rem;
+    position: relative;
   }
 
   .swiper {
@@ -836,6 +864,20 @@
     height: 0.32rem;
     margin-left: 0.05rem;
     background: url('https://youwatch.oss-cn-beijing.aliyuncs.com/app%2Farrow_right_red.png') no-repeat center/0.12rem;
+  }
+
+  .shy {
+    height: .52rem;
+    line-height: 0.52rem;
+    background: rgba(51, 51, 51, 0.5882999999999999);
+    border-radius: .3rem;
+    color: #fff;
+    position: absolute;
+    top: 0.38rem;
+    left: 0.3rem;
+    font-size: .20rem;
+    padding: 0 0.22rem;
+    z-index: 1;
   }
 
 </style>
