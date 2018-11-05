@@ -246,7 +246,7 @@
             $this.propsName.manufacturePlace = res.data.body.manufacturePlace;
             $this.scanNum = res.data.body.scanNum;
             $this.currentScanNum = res.data.body.currentScanNum;
-            $this.shyShow = $this.scanNum&$this.currentScanNum?true:false;
+            $this.shyShow = true;
             $this.rushBuyGoodsItemVO = res.data.body.rushBuyGoodsItemVO || {};
             setTimeout(()=>{$this.shyShow = false;},2000);
 
