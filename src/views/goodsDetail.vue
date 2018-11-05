@@ -28,15 +28,6 @@
         </ul>
       </div>
       <div class="proAttr">
-        <h6>附件信息</h6>
-        <ul>
-          <li>
-            <div class="left">附件</div>
-            <div class="right">{{attachmentShow || '—'}}</div>
-          </li>
-        </ul>
-      </div>
-      <div class="proAttr">
         <h6>商品属性</h6>
         <ul>
           <li>
@@ -78,6 +69,23 @@
           <li>
             <div class="left">产地</div>
             <div class="right">{{propsName.manufacturePlace || '—'}}</div>
+          </li>
+        </ul>
+      </div>
+      <div class="proAttr">
+        <h6>附件信息</h6>
+        <ul>
+          <li>
+            <div class="left">保修卡</div>
+            <div class="right">{{attachmentShow.indexOf('保修卡')>-1?'有':'无'}}</div>
+          </li>
+          <li>
+            <div class="left">说明书</div>
+            <div class="right">{{attachmentShow.indexOf('说明书')>-1?'有':'无'}}</div>
+          </li>
+          <li>
+            <div class="left">原装盒</div>
+            <div class="right">{{attachmentShow.indexOf('原装盒')>-1?'有':'无'}}</div>
           </li>
         </ul>
       </div>
@@ -168,7 +176,7 @@
             $this.goodsId = res.data.body.id;
             $this.productDesc = res.data.body.productDesc;
             $this.newOldLevel = res.data.body.newOldLevel;
-            $this.attachmentShow = res.data.body.attachmentShow;
+            $this.attachmentShow = res.data.body.attachmentShow || '';
             $this.propsName = res.data.body.propsName;
             $this.propsName.manufacturePlace = res.data.body.manufacturePlace;
             // this.baseInfo = {

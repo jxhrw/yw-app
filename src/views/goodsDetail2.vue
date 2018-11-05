@@ -1,7 +1,7 @@
 <template>
   <div id="goodsDetail">
     <scrollToTop :scTop="sctop" @click.native="goMyTop()" :style="{'position':'absolute','bottom': power>=0?'1.5rem':'0.5rem','right': '0.5rem'}"></scrollToTop>
-    <ywBar v-if="isApp" type="shareWhite" :goodsId="goodsId" :goodsName="proName" :goodsImg="slides[0]" :shareBtnShow="false || true"></ywBar>
+    <ywBar v-if="isApp" type="shareWhite" :goodsId="goodsId" :goodsName="proName" :goodsImg="slides[0]" :shareBtnShow="false"></ywBar>
     <footer v-if="power>=0">
       <div class="shadow"></div>
       <div class="btnBox">
@@ -75,15 +75,6 @@
         </ul>
       </div>
       <div class="proAttr">
-        <h6>附件信息</h6>
-        <ul>
-          <li>
-            <div class="left">附件</div>
-            <div class="right">{{attachmentShow || '—'}}</div>
-          </li>
-        </ul>
-      </div>
-      <div class="proAttr">
         <h6>商品属性</h6>
         <ul>
           <li>
@@ -128,6 +119,23 @@
           </li>
         </ul>
         <!-- <ywBtn v-if="proPrice!=-1 && pageUrl!='goodsDetHv'" text='信息不靠谱？来纠错' class="btnShop" @click.native="toRecovery(goodsId)"></ywBtn> -->
+      </div>
+      <div class="proAttr">
+        <h6>附件信息</h6>
+        <ul>
+          <li>
+            <div class="left">保修卡</div>
+            <div class="right">{{attachmentShow.indexOf('保修卡')>-1?'有':'无'}}</div>
+          </li>
+          <li>
+            <div class="left">说明书</div>
+            <div class="right">{{attachmentShow.indexOf('说明书')>-1?'有':'无'}}</div>
+          </li>
+          <li>
+            <div class="left">原装盒</div>
+            <div class="right">{{attachmentShow.indexOf('原装盒')>-1?'有':'无'}}</div>
+          </li>
+        </ul>
       </div>
       <div class="shopInfo">
         <h6>商家信息</h6>
@@ -238,7 +246,7 @@
             $this.goodsId = res.data.body.id;
             $this.productDesc = res.data.body.productDesc;
             $this.newOldLevel = res.data.body.newOldLevel;
-            $this.attachmentShow = res.data.body.attachmentShow;
+            $this.attachmentShow = res.data.body.attachmentShow || '';
             $this.goodsStock = res.data.body.goodsStock;
             $this.homeGoods = res.data.body.homeGoods;
             $this.isCollect = res.data.body.isCollect;

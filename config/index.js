@@ -35,6 +35,13 @@ module.exports = {
         pathRewrite:  {
           '^/api': ''
         }
+      },
+      '/www': {
+        target: 'https://html.youwatch.cn',
+        changeOrigin: true,
+        pathRewrite:  {
+          '^/www': ''
+        }
       }
     },
     // CSS Sourcemaps off by default because relative paths are "buggy"
