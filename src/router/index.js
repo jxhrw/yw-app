@@ -254,10 +254,10 @@ export default new Router({
         isBack: false,
       }
     },
-    //活动地址0921 -- 采访
+    //活动地址1105 -- 采访
     {
-      path: '/act0921',
-      component: resolve => { return require([ '@/views/activity_0921' ], resolve) },
+      path: '/act1105',
+      component: resolve => { return require([ '@/views/activity_1105cf' ], resolve) },
       meta: {
         keepAlive: true,
         isBack:false,

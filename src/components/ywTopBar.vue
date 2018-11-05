@@ -8,6 +8,10 @@
     <span class="iconShareBtn iconShareBtn1" @click="historyBack()"></span>
     <span v-if="shareBtnShow" class="iconShareBtn iconShareBtn2" @click="share(goodsId,goodsName,goodsDesc,goodsImg)"></span>
   </header>
+  <header v-else-if="type=='shareWhite' && isShow" class="shareHeader shareWhite">
+    <span class="iconShareBtn iconShareBtn3" @click="historyBack()"></span>
+    <span v-if="shareBtnShow" class="iconShareBtn iconShareBtn4" @click="share(goodsId,goodsName,goodsDesc,goodsImg)"></span>
+  </header>
   <header v-else-if="type=='shareBuyApp' && isShow" class="shareHeader">
     <span class="iconShareBtn iconShareBtn3" @click="historyBack()"></span>
     <span v-if="shareBtnShow" class="iconShareBtn iconShareBtn2" @click="share(goodsId,goodsName,goodsDesc,goodsImg)"></span>
@@ -208,6 +212,10 @@
     background: none;
   }
 
+  .shareWhite{
+    background: #fff;
+  }
+
   .whiteHeader {
     border-bottom: 1px solid #f5f6f6;
     background: #fff;
@@ -235,6 +243,10 @@
 
   .iconShareBtn3 {
     background-image: url('https://youwatch.oss-cn-beijing.aliyuncs.com/app/icon_back.png');
+  }
+
+  .iconShareBtn4{
+    background: url('https://youwatch.oss-cn-beijing.aliyuncs.com/app/icon_share3.png') no-repeat center/63%;
   }
 
 </style>
