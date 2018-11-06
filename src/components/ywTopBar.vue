@@ -10,7 +10,7 @@
   </header>
   <header v-else-if="type=='shareWhite' && isShow" class="shareHeader shareWhite">
     <span class="iconShareBtn iconShareBtn3" @click="historyBack()"></span>
-    <span v-if="shareBtnShow" class="iconShareBtn iconShareBtn4" @click="share(goodsId,goodsName,goodsDesc,goodsImg)"></span>
+    <span v-if="shareBtnShow" class="iconShareBtn iconShareBtn4" @click="sharingCheck(goodsPrice,goodsId,goodsName,goodsDesc,goodsImg)"></span>
   </header>
   <header v-else-if="type=='shareBuyApp' && isShow" class="shareHeader">
     <span class="iconShareBtn iconShareBtn3" @click="historyBack()"></span>
@@ -41,6 +41,9 @@
   //isShow topBar是否显示
   //backFuc 返回按钮的额外操作
   //hasBackFuc 返回按钮是否进行额外操作，backFuc存在即为true
+  import {
+    isAgentGet, //判断该商品是否已代理
+  } from '../api/api'
   export default {
     props: {
       type: {
@@ -50,6 +53,10 @@
       title: {
         type: String,
         default: ""
+      },
+      goodsPrice: {
+        type: Number,
+        default: 0
       },
       goodsId: {
         type: Number,
@@ -151,7 +158,44 @@
             window.webkit.messageHandlers.getGoodsId.postMessage(id);
           }
         }
-      }
+      },
+      sharingCheck(price, id, name, desc, imgUrl) {
+        this.pagePointBurial('spxq_spfx', '商品详情页中商品分享按钮');
+        let url = window.location.href.split("#/")[0] + "#/goodsDetHv?goodsId=" + id;
+        let device = this.whichDevice();
+        isAgentGet({
+          "goodsId": id
+        }).then(res => {
+          let $this = this;
+          this.ajaxResult(res, function () {
+            let agent = res.data.body.isAgent;
+            if (device == "androidApp") {
+              try {
+                window.Android.sharingCheck(agent, price, id, url, name, desc, imgUrl);
+              } catch (err) {
+                window.Android.getGoodsId(id);
+              }
+            } else if (device == "iosApp") {
+              try {
+                window.webkit.messageHandlers.sharingCheck.postMessage({
+                  isAgent: agent,
+                  goodsPrice: price,
+                  id: id,
+                  title: name,
+                  content: desc,
+                  url: url,
+                  iconImg: imgUrl
+                });
+              } catch (err) {
+                window.webkit.messageHandlers.getGoodsId.postMessage(id);
+              }
+            }
+          });
+        }).catch((err) => {
+          console.log(err);
+          this.axiosCatch(err, "on");
+        });
+      },
     }
   }
 
@@ -212,7 +256,7 @@
     background: none;
   }
 
-  .shareWhite{
+  .shareWhite {
     background: #fff;
   }
 
@@ -221,7 +265,7 @@
     background: #fff;
   }
 
-  .whiteHeader_noline{
+  .whiteHeader_noline {
     background: #fff;
   }
 
@@ -245,7 +289,7 @@
     background-image: url('https://youwatch.oss-cn-beijing.aliyuncs.com/app/icon_back.png');
   }
 
-  .iconShareBtn4{
+  .iconShareBtn4 {
     background: url('https://youwatch.oss-cn-beijing.aliyuncs.com/app/icon_share3.png') no-repeat center/63%;
   }
 

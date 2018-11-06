@@ -285,3 +285,10 @@ export const logisticsDetail = pams => {
     "params": pams
   })
 };
+
+//判断该商品是否已代理
+export const isAgentGet = pams => {
+  return apiToken.get(`${base}/goods-warehouse/myagent/isAgent`, {
+    "params": pams
+  });
+};
