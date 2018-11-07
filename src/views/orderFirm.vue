@@ -83,6 +83,7 @@
         activityName: '', //活动名称
         loadingFinish: false, //数据请求完成
         origin: '', //页面来源，buy:买手app
+        jkRight: 0, //接口正常数
       }
     },
     methods: {
@@ -98,8 +99,9 @@
       getAddressInfo() {
         listReceiverAddress().then(res => {
           let $this = this;
-          this.canClick = true;
           this.ajaxResult(res, function () {
+            $this.jkRight++;
+            $this.canClick = $this.jkRight>1;
             $this.myAddress.isHave = res.data.body.length > 0;
             let index = res.data.body.length > 0 ? 0 : -1;
             for (let i in res.data.body) {
@@ -110,7 +112,6 @@
             $this.myAddress.detail = index >= 0 ? res.data.body[index] : {};
           });
         }).catch((err) => {
-          this.canClick = true;
           this.axiosCatch(err);
         });
       },
@@ -119,6 +120,8 @@
         this.dataInterface(data).then(res => {
           let $this = this;
           this.ajaxResult(res, function () {
+            $this.jkRight++;
+            $this.canClick = $this.jkRight>1;
             let shopPurchasePrice = res.data.body.shopPurchasePrice;
             let grabPrice = res.data.body.discountActivityGoodsVO ? res.data.body.discountActivityGoodsVO.grabPrice :
               '';

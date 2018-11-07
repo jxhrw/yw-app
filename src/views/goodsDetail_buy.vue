@@ -10,9 +10,10 @@
             <img src="https://youwatch.oss-cn-beijing.aliyuncs.com/app/icon_kefu.png" alt="">
             <p>客服</p>
           </div>
-          <ywBtn :class="{'no':!canClick || homeGoods=='1'||proPrice==-1 || totalStock<1}" class="cBtn cBtn-buy" :text="totalStock<1?'已售罄':'立即下单'"
+          <ywBtn :class="{'no':!canClick || homeGoods=='1'||proPrice==-1 || totalStock<1 || secondKillStartTime>0}" class="cBtn cBtn-buy"
+            :text="secondKillStartTime>0?`距开始 ${zeroFill(Math.floor((secondKillStartTime + 0.5) / (3600)))}:${zeroFill(Math.floor((secondKillStartTime + 0.5) / (60)) % 60)}:${zeroFill(secondKillStartTime % (60))}`:(totalStock==0?'已售罄':'立即下单')"
             @click.native="toBuy(goodsId,shopId)"></ywBtn>
-          <ywBtn :class="{'no':!canClick || homeGoods=='1'||proPrice==-1}" class="cBtn cBtn-ans" text="立即推⼴" @click.native="shareToImg(goodsId)"></ywBtn>
+          <ywBtn :class="{'no':!canClick || homeGoods=='1'||proPrice==-1 || totalStock==-1}" class="cBtn cBtn-ans" text="立即推⼴" @click.native="shareToImg(goodsId)"></ywBtn>
         </template>
       </div>
     </footer>
@@ -169,7 +170,7 @@
         canClick: true, //按钮是否可点击
         productDesc: '', //商品描述
         newOldLevel: {}, //新旧程度
-        totalStock: 1, //商品库存
+        totalStock: -1, //商品库存
         homeGoods: 0, //自家商品，0不是自家，1是自家
         isCollect: null, //该商品是否收藏，0未收藏，1已收藏，null没有收藏功能
         propsName: {}, //商品属性
@@ -178,6 +179,7 @@
         discount: '', //折扣
         rakeBackShow: '', //返佣
         message: 'YOUWATCH-KEFU',
+        secondKillStartTime: 0, //秒杀时间
         countDownShow: true, //倒计时显示
         countDown: { //倒计时
           hours: 0,
@@ -218,6 +220,14 @@
             $this.rushBuyGoodsItemVO = res.data.body.rushBuyGoodsItemVO || {};
             $this.discount = res.data.body.discount;
             $this.rakeBackShow = res.data.body.rakeBackShow;
+            $this.secondKillStartTime = parseInt(res.data.body.secondKillLeftTime/1000 || 0);
+            let killsTime = setInterval(() => {
+              if ($this.secondKillStartTime > 0) {
+                $this.secondKillStartTime--;
+              } else {
+                clearInterval(killsTime);
+              }
+            }, 1000);
             if ($this.pageUrl == 'goodsDetail_buy') {
               $this.proPrice = res.data.body.showPrice;
               $this.retailPrice = res.data.body.marketPrice;
@@ -288,6 +298,14 @@
             this.postRushBuyStatus(status);
           }
         }, 1000);
+      },
+      //补0
+      zeroFill(a){
+        if(10>a){
+          return "0"+a;
+        }else{
+          return a;
+        }
       },
       //页面接口
       dataInterface(data) {
@@ -360,13 +378,14 @@
         this.canClick = true;
         this.productDesc = '';
         this.newOldLevel = {};
-        this.totalStock = 1;
+        this.totalStock = -1;
         this.homeGoods = 0;
         this.isCollect = null;
         // this.power = -1;
         this.popupShow = false; //弹窗是否显示
         this.discount = ''; //折扣
         this.rakeBackShow = ''; //返佣
+        this.secondKillStartTime = 0;
         this.countDownShow = true;
         this.propsName = {};
       },
