@@ -31,7 +31,7 @@
           <!-- Optional controls -->
           <div class="swiper-pagination" slot="pagination"></div>
         </swiper>
-        <p class="shy" v-if="shyShow">{{scanNum}}位同行浏览过该商品，其他{{currentScanNum}}人正在浏览</p>
+        <p class="shy" v-if="shyShow && pageUrl!='goodsDetHv'">{{scanNum}}位同行浏览过该商品，其他{{currentScanNum}}人正在浏览</p>
       </div>
       <div class="rush_buy" v-if="pageUrl=='goodsDetRush' && '{}'!=JSON.stringify(rushBuyGoodsItemVO)">
         <div class="rb_price">
