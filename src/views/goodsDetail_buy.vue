@@ -1,7 +1,7 @@
 <template>
   <div id="goodsDetail">
     <scrollToTop :scTop="sctop" @click.native="goMyTop()" :style="{'position':'absolute','bottom': power>=0?'1.5rem':'0.5rem','right': '0.5rem'}"></scrollToTop>
-    <ywBar v-if="isApp || true" type="shareBuyApp" :goodsId="goodsId" :goodsName="proName" :goodsImg="slides[0]" :shareBtnShow="false"></ywBar>
+    <ywBar v-if="isApp || true" type="shareBuyApp" :goodsId="goodsId" :goodsName="proName" :goodsImg="slides[0]" :shareBtnShow="showBuy"></ywBar>
     <footer v-if="power>=0">
       <!-- <div class="shadow"></div> -->
       <div class="btnBox">
@@ -180,6 +180,7 @@
         rakeBackShow: '', //返佣
         message: 'YOUWATCH-KEFU',
         secondKillStartTime: 0, //秒杀时间
+        showBuy: false, //页面顶部的分享显示隐藏
         countDownShow: true, //倒计时显示
         countDown: { //倒计时
           hours: 0,
@@ -220,7 +221,7 @@
             $this.rushBuyGoodsItemVO = res.data.body.rushBuyGoodsItemVO || {};
             $this.discount = res.data.body.discount;
             $this.rakeBackShow = res.data.body.rakeBackShow;
-            $this.secondKillStartTime = parseInt(res.data.body.secondKillLeftTime/1000 || 0);
+            $this.secondKillStartTime = parseInt(res.data.body.secondKillLeftTime / 1000 || 0);
             let killsTime = setInterval(() => {
               if ($this.secondKillStartTime > 0) {
                 $this.secondKillStartTime--;
@@ -300,10 +301,10 @@
         }, 1000);
       },
       //补0
-      zeroFill(a){
-        if(10>a){
-          return "0"+a;
-        }else{
+      zeroFill(a) {
+        if (10 > a) {
+          return "0" + a;
+        } else {
           return a;
         }
       },
@@ -386,6 +387,7 @@
         this.discount = ''; //折扣
         this.rakeBackShow = ''; //返佣
         this.secondKillStartTime = 0;
+        this.showBuy = false;
         this.countDownShow = true;
         this.propsName = {};
       },
@@ -495,10 +497,34 @@
           }
         }
         this.detailInfo(obj);
-      }
+      },
+      //JS接收OC传值的代码
+      getVersion(str) {
+        str = str.split('v')[1];
+        let device = this.whichDevice();
+        let reqV = '1.2.3';
+        if (device == "androidApp") {
+          reqV = '1.2.1';
+        } else if (device == "iosApp") {
+          reqV = '1.2.3';
+        }
+        let arr1 = str.split('.'),
+          arr2 = reqV.split('.');
+        let minLength = Math.min(arr1.length, arr2.length),
+          position = 0,
+          diff = 0;
+        //依次比较版本号每一位大小，当对比得出结果后跳出循环（后文有简单介绍）
+        while (position < minLength && ((diff = parseInt(arr1[position]) - parseInt(arr2[position])) == 0)) {
+          position++;
+        }
+        diff = (diff != 0) ? diff : (arr1.length - arr2.length);
+        //若curV大于reqV，则返回true
+        this.showBuy = diff > 0;
+      },
     },
     mounted() {
       window.payResult = this.payResult;
+      window.getVersion = this.getVersion;
       let device = this.whichDevice();
       this.device = device;
       if (device != "androidApp" && device != "iosApp") {
