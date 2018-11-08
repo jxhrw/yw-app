@@ -105,7 +105,7 @@
           this.$router.push({
             path: '/noticeDetailFra',
             query: {
-              url: encodeURIComponent(askOrTellPriceUrl)
+              url: askOrTellPriceUrl
             }
           });
         } else {
