@@ -1,7 +1,7 @@
 <template>
   <div id="goodsDetail">
     <scrollToTop :scTop="sctop" @click.native="goMyTop()" :style="{'position':'absolute','bottom': power>=0?'1.5rem':'0.5rem','right': '0.5rem'}"></scrollToTop>
-    <ywBar v-if="isApp || true" type="shareBuyApp" :goodsId="goodsId" :goodsName="proName" :goodsImg="slides[0]" :shareBtnShow="showBuy"></ywBar>
+    <ywBar v-if="isApp || true" type="shareBuyApp" :goodsId="goodsId" :goodsName="proName" :goodsImg="slides[0]" :shareBtnShow="false"></ywBar>
     <footer v-if="power>=0">
       <!-- <div class="shadow"></div> -->
       <div class="btnBox">
