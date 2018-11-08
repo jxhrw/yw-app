@@ -375,7 +375,6 @@
         this.shyShow = false;
         this.scanNum = '';
         this.currentScanNum = '';
-        this.showBuy = false;
         this.countDownShow = true;
         this.propsName = {};
       },
