@@ -562,6 +562,7 @@
     },
     mounted() {
       window.payResult = this.payResult;
+      window.getVersion = this.getVersion;
       let device = this.whichDevice();
       this.device = device;
       if (device != "androidApp" && device != "iosApp") {
