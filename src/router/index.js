@@ -247,7 +247,7 @@ export default new Router({
     {
       path: '/arsChange',
       component: resolve => {
-        return require(['@/views/address_change'], resolve)
+        return require(['@/views/address_change_old'], resolve)
       },
       meta: {
         keepAlive: true,
@@ -263,10 +263,10 @@ export default new Router({
         isBack:false,
       }
     },
-    //活动地址1022 -- 采访
+    //活动地址1113 -- 采访
     {
-      path: '/act1022',
-      component: resolve => { return require([ '@/views/activity_1022' ], resolve) },
+      path: '/act1113',
+      component: resolve => { return require([ '@/views/activity_1113cf' ], resolve) },
       meta: {
         keepAlive: true,
         isBack:false,
@@ -281,10 +281,10 @@ export default new Router({
         isBack:false,
       }
     },
-    //活动地址1030
+    //活动地址1110
     {
-      path: '/act1030',
-      component: resolve => { return require([ '@/views/activity_1030' ], resolve) },
+      path: '/act1110',
+      component: resolve => { return require([ '@/views/activity_1110' ], resolve) },
       meta: {
         keepAlive: true,
         isBack:false,

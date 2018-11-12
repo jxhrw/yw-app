@@ -6,7 +6,7 @@
   </header>
   <header v-else-if="type=='share' && isShow" class="shareHeader">
     <span class="iconShareBtn iconShareBtn1" @click="historyBack()"></span>
-    <span v-if="shareBtnShow" class="iconShareBtn iconShareBtn2" @click="share(goodsId,goodsName,goodsDesc,goodsImg)"></span>
+    <span v-if="shareBtnShow" class="iconShareBtn iconShareBtn2" @click="share(agentId,goodsId,goodsName,goodsDesc,goodsImg)"></span>
   </header>
   <header v-else-if="type=='shareWhite' && isShow" class="shareHeader shareWhite">
     <span class="iconShareBtn iconShareBtn3" @click="historyBack()"></span>
@@ -14,7 +14,7 @@
   </header>
   <header v-else-if="type=='shareBuyApp' && isShow" class="shareHeader">
     <span class="iconShareBtn iconShareBtn3" @click="historyBack()"></span>
-    <span v-if="shareBtnShow" class="iconShareBtn iconShareBtn2" @click="share(goodsId,goodsName,goodsDesc,goodsImg)"></span>
+    <span v-if="shareBtnShow" class="iconShareBtn iconShareBtn2" @click="share(agentId,goodsId,goodsName,goodsDesc,goodsImg)"></span>
   </header>
   <header v-else-if="type=='white' && isShow" class="whiteHeader">
     <mu-icon value="chevron_left" right class="iconBtn" @click="historyBack()"></mu-icon>
@@ -55,6 +55,10 @@
         default: ""
       },
       goodsPrice: {
+        type: Number,
+        default: 0
+      },
+      agentId: {
         type: Number,
         default: 0
       },
@@ -135,9 +139,12 @@
           window.history.back();
         }
       },
-      share(id, name, desc, imgUrl) {
+      share(agentId, id, name, desc, imgUrl) {
         this.pagePointBurial('spxq_spfx', '商品详情页中商品分享按钮');
         let url = window.location.href.split("#/")[0] + "#/goodsDetHv?goodsId=" + id;
+        if (agentId && agentId != 0 && agentId != '') {
+          url = window.location.href.split("#/")[0] + "#/goodsDetHv?goodsAgentId=" + agentId;
+        }
         let device = this.whichDevice();
         if (device == "androidApp") {
           try {
@@ -169,6 +176,10 @@
           let $this = this;
           this.ajaxResult(res, function () {
             let agent = res.data.body.isAgent;
+            let agentId = res.data.body.agentId;
+            if(agent == '1' && agentId){
+              url = window.location.href.split("#/")[0] + "#/goodsDetHv?goodsAgentId=" + agentId;
+            }
             if (device == "androidApp") {
               try {
                 window.Android.sharingCheck(agent, price, id, url, name, desc, imgUrl);

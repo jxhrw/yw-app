@@ -1,6 +1,7 @@
 <template>
   <div id="orderFirm">
     <ywBar :title="'订单确认'" type="white"></ywBar>
+    <ywPrompt :isShow="onPrompt" :origin="origin" title="输入验证码" yesText="取消" noText="确定" @toParent="listen" :noFuc='toOrder'></ywPrompt>
     <footer>
       <div class="shadow"></div>
       <div class="btnBox">
@@ -8,10 +9,11 @@
           <span style="color:#EA3C3C;">￥{{goodsInfo.actualPrice}}</span>
         </p>
         <ywBtn :class="{'no':!canClick,'buy':'buy'==origin}" class="cBtn cBtn-buy" text="
-确认支付" @click.native="toOrder"></ywBtn>
+确认支付" @click.native="toOrder('')"></ywBtn>
       </div>
     </footer>
     <div class="content">
+       <!-- <p @click="onPrompt = true">{{onPrompt}}</p> -->
       <div class="my_address">
         <ywBtn v-if="!myAddress.isHave" type="icon" text="新增收货地址" iconUrl="https://youwatch.oss-cn-beijing.aliyuncs.com/app/arrow_right.png"
           class="s_btn" @click.native="toChangeAddress"></ywBtn>
@@ -84,6 +86,7 @@
         loadingFinish: false, //数据请求完成
         origin: '', //页面来源，buy:买手app
         jkRight: 0, //接口正常数
+        onPrompt:false,
       }
     },
     methods: {
@@ -180,14 +183,26 @@
         }
         return end;
       },
+      //尝试提交订单
+      tryOrder(){
+        let needCode = true;
+        if(needCode){
+          this.onPrompt = true;
+        }else{
+          toOrder('');
+        }
+      },
       //提交订单
-      toOrder() {
+      toOrder(data) {
         let obj = {
           'goodsId': this.$route.query.goodsId,
           'addressId': this.myAddress.detail.id,
           'goodsNum': 1,
           'transportFee': 0
         };
+        if(data){
+          obj.code = data;
+        }
         this.canClick = false;
         submitOrder(obj).then(res => {
           let $this = this;
@@ -216,12 +231,17 @@
             'origin': this.$route.query.origin,
           }
         });
-      }
+      },
+      //接收prompt子组件的返回
+      listen(data){
+        this.onPrompt = data;
+      },
     },
     mounted() {
 
     },
     activated() {
+      this.onPrompt = false;
       this.origin = this.$route.query.origin;
       if (!this.$route.meta.isBack) { //初次
         let goodsId = this.$route.query.goodsId;

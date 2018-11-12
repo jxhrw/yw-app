@@ -1,22 +1,20 @@
 <template>
   <div id="address">
-    <ywBar :title="'编辑收货地址'" :operateTxt="'保存'" :isClick="canClick" :operateFuc="holdAddress" type="white" :backFuc="sureBack"
-      :hasBackFuc="true"></ywBar>
+    <ywBar :title="'编辑收货地址'" :operateTxt="'保存'" :isClick="canClick" :operateFuc="holdAddress" type="white" :backFuc="sureBack" :hasBackFuc="true"></ywBar>
     <div class="content" v-show="loadingFinish">
       <ul class="myInfo">
         <li>
-          <input type="text" placeholder="收货人" v-model="addressMy.receiver" v-on:input="changeFuc">
+          <input type="text" placeholder="收货人" v-model="addressMy.receiver" v-on:input ="changeFuc">
         </li>
         <li>
-          <input type="text" placeholder="联系电话" v-model="addressMy.phone" v-on:input="changeFuc">
+          <input type="text" placeholder="联系电话" v-model="addressMy.phone" v-on:input ="changeFuc">
         </li>
         <li>
           <p class="on" @click="popupShow=!popupShow" v-if="!isInit && (addressMy.provinceShow || addressMy.cityShow ||addressMy.countryShow)">{{addressMy.provinceShow}} {{addressMy.cityShow}} {{addressMy.countryShow}}</p>
-          <!-- <p class="on" @click="popupShow=!popupShow" v-if="!isInit && (addressMy.province || addressMy.city ||addressMy.country)">{{addressMy.province}} {{addressMy.city}} {{addressMy.country}}</p> -->
           <p v-else @click="openAndChoose">所在地区</p>
         </li>
         <li>
-          <input type="text" placeholder="详细地址" v-model="addressMy.address" v-on:input="changeFuc">
+          <input type="text" placeholder="详细地址" v-model="addressMy.address" v-on:input ="changeFuc">
         </li>
       </ul>
       <div class="isDefault">
@@ -30,7 +28,7 @@
         <mu-icon value="clear" class="iconBtn" @click="popupShow=!popupShow"></mu-icon>
         <h3>选择地区</h3>
         <div class="demo-picker-container">
-          <mt-picker :slots="slots" valueKey="name" @change="onValuesChange" :visibleItemCount='7'></mt-picker>
+          <mu-slide-picker :slots="addressSlots" :visible-item-count="7" @change="addressChange" :values="addressShow"></mu-slide-picker>
         </div>
       </footer>
     </div>
@@ -53,7 +51,7 @@
         canClick: true, //按钮是否可点击
         popupShow: false, //弹窗是否显示
         loadingFinish: false, //数据请求完成
-        origin: '', //页面来源，buy:买手app
+        origin:'',//页面来源，buy:买手app
         addressMy: { //当前地址信息
           id: '', //收货地址id
           province: '', //省
@@ -68,25 +66,37 @@
           phone: '', //收货人电话
           isDefault: '0', //是否设为默认地址：0否，1是
         },
-        slots: [{
-          flex: 1,
-          defaultIndex: 0,
-          values: [],
-          className: 'slot1',
-          textAlign: 'center'
-        }, {
-          flex: 1,
-          defaultIndex: 0,
-          values: [],
-          className: 'slot2',
-          textAlign: 'center'
-        }, {
-          flex: 1,
-          defaultIndex: 0,
-          values: [],
-          className: 'slot3',
-          textAlign: 'center'
-        }],
+        //多选的列表值
+        addressSlots: [{
+            width: '100%',
+            textAlign: 'center',
+            values: []
+          },
+          {
+            width: '100%',
+            textAlign: 'center',
+            values: []
+          }, {
+            width: '100%',
+            textAlign: 'center',
+            values: []
+          }
+        ],
+        //选中的值
+        addressShow: [],
+        //可选列表
+        addressShowList: {
+          code: {
+            provinceCode: [],
+            cityCode: [],
+            countryCode: [],
+          },
+          show: {
+            provinceShow: [],
+            cityShow: [],
+            countryShow: [],
+          }
+        }
       }
     },
     methods: {
@@ -100,9 +110,9 @@
             $this.addressMy.province = res.data.body.province;
             $this.addressMy.city = res.data.body.city;
             $this.addressMy.country = res.data.body.country;
-            $this.addressMy.provinceShow = res.data.body.provinceName;
-            $this.addressMy.cityShow = res.data.body.cityName;
-            $this.addressMy.countryShow = res.data.body.countryName;
+            // $this.addressMy.provinceShow = res.data.body.provinceName;
+            // $this.addressMy.cityShow = res.data.body.cityName;
+            // $this.addressMy.countryShow = res.data.body.countryName;
             $this.addressMy.address = res.data.body.address;
             $this.addressMy.post = res.data.body.post;
             $this.addressMy.receiver = res.data.body.person;
@@ -117,16 +127,13 @@
       //返回执行
       sureBack() {
         if (this.isChange) {
-          let nostyle = this.origin == 'buy' ?
-            'linear-gradient(32deg,rgba(200,142,100,0.65) 0%,rgba(200,142,100,1) 100%)!important' : '';
+          let nostyle = this.origin=='buy'?'linear-gradient(32deg,rgba(200,142,100,0.65) 0%,rgba(200,142,100,1) 100%)!important':'';
           this.$confirm({
             title: '',
             content: '退出后将丢失您当前编辑的信息，是否退出？',
             yesText: "退出",
             noText: '取消',
-            noStyle: {
-              "background": nostyle
-            },
+            noStyle:{"background":nostyle},
           }).then(res => {
             this.toBack();
           }).catch(err => {});
@@ -135,7 +142,7 @@
         }
       },
       //是否修改
-      changeFuc() {
+      changeFuc(){
         this.isChange = true;
       },
       //返回
@@ -160,7 +167,7 @@
       //地址保存
       holdAddress() {
         if (!this.addressMy.receiver || !this.addressMy.phone || !this.addressMy.province || !this.addressMy.city || !
-          this.addressMy.country || !this.addressMy.address || this.isInit) {
+          this.addressMy.country || !this.addressMy.address) {
           this.$alert({
             title: '',
             content: '信息不完整',
@@ -215,11 +222,17 @@
       openAndChoose() {
         this.isInit = false;
         this.popupShow = !this.popupShow;
+        this.addressMy.province = this.addressShowList.code.provinceCode[0];
+        this.addressMy.provinceShow = this.addressShowList.show.provinceShow[0];
+        this.addressMy.city = this.addressShowList.code.cityCode[0];
+        this.addressMy.cityShow = this.addressShowList.show.cityShow[0];
+        this.addressMy.country = this.addressShowList.code.countryCode[0];
+        this.addressMy.countryShow = this.addressShowList.show.countryShow[0];
       },
       //数据初始化
       dataInit() {
         this.isInit = true; //是否新增
-        this.isChange = false; //是否修改
+        this.isChange = false;//是否修改
         this.canClick = true; //按钮是否可点击
         this.popupShow = false; //弹窗是否显示
         this.loadingFinish = false;
@@ -239,35 +252,36 @@
         };
       },
       //改变选中后触发
-      onValuesChange(picker, values) {
-        if(!this.popupShow){
-          return false;
+      addressChange(value, index) {
+        let myCode = '';
+        this.isInit = false;
+        this.changeFuc();
+        switch (index) {
+          case 0:
+            myCode = this.addressShowList.code.provinceCode[this.addressShowList.show.provinceShow.indexOf(value)];
+            this.addressMy.province = myCode;
+            this.addressMy.provinceShow = value;
+            this.addressMy.city = '';
+            this.addressMy.cityShow = '';
+            this.addressMy.country = '';
+            this.addressMy.countryShow = '';
+            this.myLevel("area", myCode, 1);
+            break
+          case 1:
+            myCode = this.addressShowList.code.cityCode[this.addressShowList.show.cityShow.indexOf(value)];
+            this.addressMy.city = myCode;
+            this.addressMy.cityShow = value;
+            this.addressMy.country = '';
+            this.addressMy.countryShow = '';
+            this.myLevel("area", myCode, 2);
+            break
+          case 2:
+            myCode = this.addressShowList.code.countryCode[this.addressShowList.show.countryShow.indexOf(value)];
+            this.addressMy.country = myCode;
+            this.addressMy.countryShow = value;
+            this.addressShow = [this.addressMy.provinceShow, this.addressMy.cityShow, this.addressMy.countryShow];
+            break
         }
-
-        if (values[0] && values[1] && values[2] && values[0].code && values[0].code != this.addressMy.province) {
-          queryDic({
-            'type': 'area',
-            "parent": values[0].code
-          }).then(res => {
-            this.addressMy.province = values[0].code;
-            this.addressMy.provinceShow = values[0].name;
-            picker.setSlotValues(1, this.getObjNoOne(res.data.body));
-          })
-        } else if (values[0] && values[1] && values[2] && values[1].code && values[1].code != this.addressMy.city) {
-          queryDic({
-            'type': 'area',
-            "parent": values[1].code
-          }).then(res => {
-            this.addressMy.city = values[1].code;
-            this.addressMy.cityShow = values[1].name;
-            picker.setSlotValues(2, this.getObjNoOne(res.data.body));
-            picker.setSlotValue(2, this.getObjNoOne(res.data.body)[0]);
-          })
-        } else if (values[0] && values[1] && values[2] && values[1].code && values[2].code != this.addressMy.country) {
-          this.addressMy.country = values[2].code;
-          this.addressMy.countryShow = values[2].name;
-        }
-        //console.log(values[0].code, values[1].code, values[2].code);
       },
       //将对象的某个key的value值组成数组
       getObjValues(array, name) {
@@ -275,15 +289,6 @@
         for (let j in array) {
           if (array[j].code.indexOf("1_") <= -1) { //过滤code有1_的数据
             arr.push(array[j][name]);
-          }
-        }
-        return arr;
-      },
-      getObjNoOne(array) {
-        let arr = [];
-        for (let j in array) {
-          if (array[j].code.indexOf("1_") <= -1) { //过滤code有1_的数据
-            arr.push(array[j]);
           }
         }
         return arr;
@@ -296,33 +301,59 @@
         }).then(res => {
           this.loadingFinish = true;
           if (index == 0) {
-            this.slots[0].values = res.data.body;
-            this.addressMy.province = this.addressMy.province || res.data.body[0].code;
+            this.addressShowList.code.provinceCode = this.getObjValues(res.data.body, 'code');
+            this.addressShowList.show.provinceShow = this.getObjValues(res.data.body, 'name');
+            this.addressSlots[0].values = this.addressShowList.show.provinceShow;
+            if (this.addressMy.province) {
+              let i = this.addressShowList.code.provinceCode.indexOf(this.addressMy.province);
+              this.addressMy.provinceShow = this.addressShowList.show.provinceShow[i];
+            } else {
+              this.addressMy.province = this.addressShowList.code.provinceCode[0];
+              this.addressMy.provinceShow = this.addressShowList.show.provinceShow[0];
+            }
+            this.addressShow = [
+              this.addressMy.provinceShow || this.addressShowList.show.provinceShow[0],
+              this.addressMy.cityShow || this.addressShowList.show.cityShow[0],
+              this.addressMy.countryShow || this.addressShowList.show.countryShow[0]
+            ];
 
-            let arr = this.getObjValues(res.data.body, 'code');
-            let all = this.getObjNoOne(res.data.body);
-            this.addressMy.provinceShow = all[arr.indexOf(this.addressMy.province)].name;
-            this.slots[0].defaultIndex = arr.indexOf(this.addressMy.province);
-
-            this.myLevel("area", this.addressMy.province, 1);
+            let useCode = this.addressMy.province || this.addressShowList.code.provinceCode[0];
+            this.myLevel("area", useCode, 1);
           } else if (index == 1) {
-            this.slots[1].values = res.data.body;
-            this.addressMy.city = this.addressMy.city || res.data.body[0].code;
+            this.addressShowList.show.cityShow = this.getObjValues(res.data.body, 'name');
+            this.addressShowList.code.cityCode = this.getObjValues(res.data.body, 'code');
+            this.addressSlots[1].values = this.addressShowList.show.cityShow;
+            if (this.addressMy.city) {
+              let i = this.addressShowList.code.cityCode.indexOf(this.addressMy.city);
+              this.addressMy.cityShow = this.addressShowList.show.cityShow[i];
+            } else {
+              this.addressMy.city = this.addressShowList.code.cityCode[0];
+              this.addressMy.cityShow = this.addressShowList.show.cityShow[0];
+            }
+            this.addressShow = [
+              this.addressMy.provinceShow || this.addressShowList.show.provinceShow[0],
+              this.addressMy.cityShow || this.addressShowList.show.cityShow[0],
+              this.addressMy.countryShow || this.addressShowList.show.countryShow[0]
+            ];
 
-            let arr = this.getObjValues(res.data.body, 'code');
-            let all = this.getObjNoOne(res.data.body);
-            this.addressMy.cityShow = all[arr.indexOf(this.addressMy.city)].name;
-            this.slots[1].defaultIndex = arr.indexOf(this.addressMy.city);
-
-            this.myLevel("area", this.addressMy.city, 2);
+            let useCode = this.addressMy.city || this.addressShowList.code.cityCode[0];
+            this.myLevel("area", useCode, 2);
           } else if (index == 2) {
-            this.slots[2].values = res.data.body;
-            this.addressMy.country = this.addressMy.country || res.data.body[0].code;
-
-            let arr = this.getObjValues(res.data.body, 'code');
-            let all = this.getObjNoOne(res.data.body);
-            this.addressMy.countryShow = all[arr.indexOf(this.addressMy.country)].name;
-            this.slots[2].defaultIndex = arr.indexOf(this.addressMy.country);
+            this.addressShowList.show.countryShow = this.getObjValues(res.data.body, 'name');
+            this.addressShowList.code.countryCode = this.getObjValues(res.data.body, 'code');
+            this.addressSlots[2].values = this.addressShowList.show.countryShow;
+            if (this.addressMy.country) {
+              let i = this.addressShowList.code.countryCode.indexOf(this.addressMy.country);
+              this.addressMy.countryShow = this.addressShowList.show.countryShow[i];
+            } else {
+              this.addressMy.country = this.addressShowList.code.countryCode[0];
+              this.addressMy.countryShow = this.addressShowList.show.countryShow[0];
+            }
+            this.addressShow = [
+              this.addressMy.provinceShow || this.addressShowList.show.provinceShow[0],
+              this.addressMy.cityShow || this.addressShowList.show.cityShow[0],
+              this.addressMy.countryShow || this.addressShowList.show.countryShow[0]
+            ];
           }
         })
       },
@@ -467,19 +498,19 @@
     font-size: 0.6rem;
   }
 
-  .demo-picker-container {
-    width: 100%;
-
-  }
-
 </style>
 <style>
-  #address .picker-item {
+  #address .mu-slide-picker-item {
     font-size: .24rem;
   }
 
-  #address .picker-item.picker-selected {
+  #address .mu-slide-picker-item.selected {
     font-size: .28rem;
+  }
+
+  .demo-picker-container {
+    width: 100%;
+
   }
 
 </style>

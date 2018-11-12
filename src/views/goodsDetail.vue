@@ -1,7 +1,7 @@
 <template>
   <div id="goodsDetail">
     <scrollToTop :scTop="sctop" @click.native="goMyTop()" :style="{'position':'absolute','bottom': '0.5rem','right': '0.5rem'}"></scrollToTop>
-    <ywBar v-if="isApp" type="share" :goodsId="goodsId" :goodsName="proName" :goodsImg="slides[0]"></ywBar>
+    <ywBar v-if="isApp" type="share" :agentId="agentId" :goodsId="goodsId" :goodsName="proName" :goodsImg="slides[0]"></ywBar>
     <div class="content" ref="content" style="padding-bottom:0;">
       <div class="banner">
         <div class='swiperImg' v-if="slides.length==1" :style="{'background-image':'url('+slides[0]+')'}"></div>
@@ -143,6 +143,7 @@
         // baseInfo: {}, //基本信息
         otherImageUrlList: [], //商品图片
         goodsId: 0, //商品id
+        agentId:0,//代理id
         shopId: 0, //商家id
         isApp: true, //是否处于有表app里
         productDesc: '', //商品描述
@@ -256,6 +257,7 @@
       this.pagePointBurial('spxq','商品详情页b2c');
       this.dataInit();
       let goodsId = this.$route.query.goodsAgentId;
+      this.agentId = goodsId;
       this.detailInfo({
         'agentId': goodsId
       });

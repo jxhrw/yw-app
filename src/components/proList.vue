@@ -10,7 +10,7 @@
           <p class="itPrice">
             <span>￥</span>{{item.salePriceShow}}</p>
           <p class="itShopName">{{item.shopCnName}}</p>
-          <p v-if="isShare" class="shareIcon" :style="{'background-image':'url('+imgShare+')'}" @click="share(item.goodsId,item.name,'给你推荐一个不错的手表，快来看看吧~',item.image)"></p>
+          <p v-if="isShare" class="shareIcon" :style="{'background-image':'url('+imgShare+')'}" @click="share(item.id,item.goodsId,item.name,'给你推荐一个不错的手表，快来看看吧~',item.image)"></p>
         </div>
       </li>
     </template>
@@ -60,10 +60,10 @@
           query: obj
         });
       },
-      share(id, name, desc, imgUrl) {
+      share(agentId, id, name, desc, imgUrl) {
         this.pagePointBurial('wdmd_spfx', '我的门店中商品分享按钮');
         event.stopPropagation();
-        let url = window.location.href.split("#/")[0] + "#/goodsDetHv?goodsId=" + id;
+        let url = window.location.href.split("#/")[0] + "#/goodsDetHv?goodsAgentId=" + agentId;
         let device = this.whichDevice();
         if (device == "androidApp") {
           try {
