@@ -1,7 +1,8 @@
 <template>
   <div id="orderFirm">
     <ywBar :title="'订单确认'" type="white"></ywBar>
-    <ywPrompt :isShow="onPrompt" :origin="origin" title="输入验证码" yesText="取消" noText="确定" @toParent="listen" :noFuc='toOrder'></ywPrompt>
+    <ywPrompt :isShow="onPrompt" :origin="origin" title="输入验证码" yesText="取消" noText="确定" :imgUrl="imgUrl" @toParent="listen"
+      :noFuc='toOrder' :imgFuc='getImgCode'></ywPrompt>
     <footer>
       <div class="shadow"></div>
       <div class="btnBox">
@@ -9,11 +10,11 @@
           <span style="color:#EA3C3C;">￥{{goodsInfo.actualPrice}}</span>
         </p>
         <ywBtn :class="{'no':!canClick,'buy':'buy'==origin}" class="cBtn cBtn-buy" text="
-确认支付" @click.native="toOrder('')"></ywBtn>
+确认支付" @click.native="tryOrder"></ywBtn>
       </div>
     </footer>
     <div class="content">
-       <!-- <p @click="onPrompt = true">{{onPrompt}}</p> -->
+      <!-- <p @click="onPrompt = true">{{onPrompt}}</p> -->
       <div class="my_address">
         <ywBtn v-if="!myAddress.isHave" type="icon" text="新增收货地址" iconUrl="https://youwatch.oss-cn-beijing.aliyuncs.com/app/arrow_right.png"
           class="s_btn" @click.native="toChangeAddress"></ywBtn>
@@ -70,7 +71,8 @@
     cartMaiShouGoodsDetail,
     listReceiverAddress,
     submitOrder,
-    loadReceiverAddress
+    loadReceiverAddress,
+    imageCreate,
   } from '../api/api'
   export default {
     data() {
@@ -86,7 +88,10 @@
         loadingFinish: false, //数据请求完成
         origin: '', //页面来源，buy:买手app
         jkRight: 0, //接口正常数
-        onPrompt:false,
+        onPrompt: false,
+        secondKillGoods: false, //是否是秒杀商品
+        imgUrl: '', //图片验证码
+        firstCode:true,//是否首次获取验证码
       }
     },
     methods: {
@@ -104,7 +109,7 @@
           let $this = this;
           this.ajaxResult(res, function () {
             $this.jkRight++;
-            $this.canClick = $this.jkRight>1;
+            $this.canClick = $this.jkRight > 1;
             $this.myAddress.isHave = res.data.body.length > 0;
             let index = res.data.body.length > 0 ? 0 : -1;
             for (let i in res.data.body) {
@@ -124,7 +129,7 @@
           let $this = this;
           this.ajaxResult(res, function () {
             $this.jkRight++;
-            $this.canClick = $this.jkRight>1;
+            $this.canClick = $this.jkRight > 1;
             let shopPurchasePrice = res.data.body.shopPurchasePrice;
             let grabPrice = res.data.body.discountActivityGoodsVO ? res.data.body.discountActivityGoodsVO.grabPrice :
               '';
@@ -141,6 +146,7 @@
             $this.goodsInfo.cheapMoney = cheapMoney;
             $this.goodsInfo.transportFee = transportFee;
             $this.goodsInfo.actualPrice = actualPrice;
+            $this.secondKillGoods = res.data.body.secondKillGoods;
             if ($this.origin == 'buy') {
               $this.goodsInfo.price = actualPrice;
               $this.goodsInfo.shopPurchasePrice = actualPrice;
@@ -183,12 +189,26 @@
         }
         return end;
       },
+      //获取验证码
+      getImgCode() {
+        imageCreate().then(res => {
+          let $this = this;
+          this.ajaxResult(res, function () {
+            $this.imgUrl = res.data.body.imgBase64Code;
+          });
+        }).catch((err) => {
+          this.axiosCatch(err);
+        });
+      },
       //尝试提交订单
-      tryOrder(){
-        let needCode = true;
-        if(needCode){
+      tryOrder() {
+        if (this.secondKillGoods) {
+          if(this.firstCode && this.imgUrl==""){
+            this.getImgCode();
+          }
+          this.firstCode = false;
           this.onPrompt = true;
-        }else{
+        } else {
           toOrder('');
         }
       },
@@ -200,8 +220,8 @@
           'goodsNum': 1,
           'transportFee': 0
         };
-        if(data){
-          obj.code = data;
+        if (data) {
+          obj.imageCode = data;
         }
         this.canClick = false;
         submitOrder(obj).then(res => {
@@ -233,7 +253,7 @@
         });
       },
       //接收prompt子组件的返回
-      listen(data){
+      listen(data) {
         this.onPrompt = data;
       },
     },

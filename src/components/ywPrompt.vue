@@ -1,11 +1,11 @@
 <template>
   <div id='ywPrompt' v-if="isShow" class="yw-mask yw-messagebox__mask--- yw-messagebox__mask-transition---">
-    <div class="yw-popup yw-popup-in yw-messagebox__popup--- yw-messagebox__popup-transition---">
+    <div class="yw-popup yw-popup-in yw-messagebox__popup---" :class="{'yw-messagebox__popup-transition---':anime}">
       <div class="yw-popup-inner">
         <div class="yw-popup-title">{{title}}</div>
         <div class="yw-popup-text">
-          <input type="text" v-model="inputVal" />
-          <img :src="'data:img/jpg;base64,'+imgUrl" alt="">
+          <input class="codeInput" type="text" v-model="inputVal" />
+          <img class="codeImg" :src="'data:img/jpg;base64,'+imgUrl" alt="" @click="imgFuc">
         </div>
       </div>
       <div class="yw-popup-buttons">
@@ -50,10 +50,22 @@
         type: Function,
         default: function () {}
       },
+      imgFuc: {
+        type: Function,
+        default: function () {}
+      },
+    },
+    watch: {
+      isShow(cur, old) {
+        setTimeout(() => {
+          this.anime = cur;
+        });
+      }
     },
     data() {
       return {
         inputVal: '',
+        anime: false,
       }
     },
     methods: {
@@ -71,7 +83,7 @@
         this.$emit("toParent", false);
         this.inputVal = '';
       }
-    }
+    },
   }
 
 </script>
@@ -93,12 +105,6 @@
     -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
   }
 
-
-  .yw-messagebox__popup-transition--- {
-    -webkit-transition: all .4s;
-    transition: all .4s;
-  }
-
   .yw-popup {
     border-radius: 4px !important;
     background-color: #ffffff;
@@ -111,7 +117,7 @@
     left: 50%;
     overflow: hidden;
     width: 270px;
-    -webkit-transform: translate3d(-50%, -50%, 0) scale(1.185);
+    transform: translate3d(-50%, -50%, 0) scale(1.185);
     text-align: center;
     color: #000;
     -webkit-border-radius: 13px;
@@ -121,6 +127,7 @@
   .yw-messagebox__popup-transition--- {
     -webkit-transition: all .4s;
     transition: all .4s;
+    transform: translate3d(-50%, -50%, 0) scale(1);
   }
 
   .yw-popup.yw-popup-in {
@@ -130,8 +137,8 @@
 
   .yw-popup.yw-popup-in,
   .yw-popup.yw-popup-out {
-    -webkit-transform: translate3d(-50%, -50%, 0) scale(1);
-    transform: translate3d(-50%, -50%, 0) scale(1);
+    /* -webkit-transform: translate3d(-50%, -50%, 0) scale(1);
+    transform: translate3d(-50%, -50%, 0) scale(1); */
   }
 
   .yw-popup-inner {
@@ -217,6 +224,24 @@
     color: #ffffff;
     background: linear-gradient(60deg, rgba(251, 100, 85, 1) 0%, rgba(254, 61, 54, 1) 100%);
     border-radius: 0 0 4px 0;
+  }
+
+  .codeInput {
+    width: 60%;
+    padding: 0 0.1rem;
+    height: 0.7rem;
+    display: inline-block;
+  }
+
+  .codeInput {
+    /* outline: none; */
+  }
+
+  .codeImg {
+    width: 35%;
+    height: 0.7rem;
+    display: block;
+    float: right;
   }
 
 </style>
