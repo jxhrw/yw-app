@@ -201,6 +201,7 @@
         otherImageUrlList: [], //商品图片
         goodsId: 0, //商品id
         shopId: 0, //商家id
+        agentId:0,//代理id
         isApp: true, //是否处于有表app里
         canClick: true, //按钮是否可点击
         productDesc: '', //商品描述
@@ -509,6 +510,7 @@
         let goodsId = this.$route.query.goodsId;
         let agentId = this.$route.query.goodsAgentId;
         let activityId = this.$route.query.activityId;
+        this.agentId = agentId;
         let obj = {};
         if (this.pageUrl == 'goodsDetail2') {
           this.pagePointBurial('spxqb2b', '商品详情页b2b');
