@@ -65,6 +65,7 @@ Vue.component('ywBtn', ywBtn);
 Vue.component('ywLoading', ywLoading);
 Vue.component('scrollToTop', scrollToTop);
 Vue.component('ywBar', ywBar);
+Vue.component('ywTopLoad', ywTopLoad);
 Vue.component('ywPrompt', ywPrompt);
 
 import { Picker } from 'mint-ui';

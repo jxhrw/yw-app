@@ -290,10 +290,10 @@ export default new Router({
         isBack:false,
       }
     },
-    //活动地址1102
+    //活动地址1114
     {
-      path: '/act1102',
-      component: resolve => { return require([ '@/views/activity_1102' ], resolve) },
+      path: '/act1114',
+      component: resolve => { return require([ '@/views/activity_1114' ], resolve) },
       meta: {
         keepAlive: true,
         isBack:false,
