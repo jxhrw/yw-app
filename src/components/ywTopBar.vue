@@ -1,37 +1,44 @@
 <template>
   <header v-if="type=='title' && isShow">
-    <mu-icon value="chevron_left" right class="iconBtn" @click="historyBack()"></mu-icon>
+    <!-- <mu-icon value="chevron_left" right class="iconBtn" @click="historyBack()"></mu-icon> -->
     <h1>{{title}}</h1>
-    <span class="resetBtn"></span>
+    <span class="iconShareBtn iconShareBtn3 floatLeft" @click="historyBack()"></span>
+    <!-- <span class="resetBtn floatRight"></span>占位用 -->
   </header>
   <header v-else-if="type=='share' && isShow" class="shareHeader">
-    <span class="iconShareBtn iconShareBtn1" @click="historyBack()"></span>
-    <span v-if="shareBtnShow" class="iconShareBtn iconShareBtn2" @click="share(agentId,goodsId,goodsName,goodsDesc,goodsImg)"></span>
+    <span class="iconShareBtn iconShareBtn1 floatLeft" @click="historyBack()"></span>
+    <span v-if="shareBtnShow" class="iconShareBtn iconShareBtn2 floatRight" @click="share(agentId,goodsId,goodsName,goodsDesc,goodsImg)"></span>
   </header>
   <header v-else-if="type=='shareWhite' && isShow" class="shareHeader shareWhite">
-    <span class="iconShareBtn iconShareBtn3" @click="historyBack()"></span>
-    <span v-if="shareBtnShow" class="iconShareBtn iconShareBtn4" @click="sharingCheck(goodsPrice,goodsId,goodsName,goodsDesc,goodsImg)"></span>
+    <span class="iconShareBtn iconShareBtn3 floatLeft" @click="historyBack()"></span>
+    <span v-if="shareBtnShow" class="iconShareBtn iconShareBtn4 floatRight" @click="sharingCheck(goodsPrice,goodsId,goodsName,goodsDesc,goodsImg)"></span>
   </header>
   <header v-else-if="type=='shareBuyApp' && isShow" class="shareHeader">
-    <span class="iconShareBtn iconShareBtn3" @click="historyBack()"></span>
-    <span v-if="shareBtnShow" class="iconShareBtn iconShareBtn2" @click="share(agentId,goodsId,goodsName,goodsDesc,goodsImg)"></span>
+    <span class="iconShareBtn iconShareBtn3 floatLeft" @click="historyBack()"></span>
+    <span v-if="shareBtnShow" class="iconShareBtn iconShareBtn2 floatRight" @click="share(agentId,goodsId,goodsName,goodsDesc,goodsImg)"></span>
   </header>
   <header v-else-if="type=='white' && isShow" class="whiteHeader">
-    <mu-icon value="chevron_left" right class="iconBtn" @click="historyBack()"></mu-icon>
+    <!-- <mu-icon value="chevron_left" right class="iconBtn" @click="historyBack()"></mu-icon> -->
     <h1>{{title}}</h1>
-    <span v-if="operateTxt==''" class="resetBtn"></span>
-    <span v-show="operateTxt!=''" :class="{'no':!isClick}" class="resetBtn" @click="operateFuc">{{operateTxt}}</span>
+    <span class="iconShareBtn iconShareBtn3 floatLeft" @click="historyBack()"></span>
+    <!-- <span v-if="operateTxt==''" class="resetBtn floatRight"></span>占位用 -->
+    <span v-show="operateTxt!=''" :class="{'no':!isClick}" class="resetBtn floatRight" @click="operateFuc">{{operateTxt}}</span>
   </header>
   <header v-else-if="type=='whiteIcon' && isShow" class="whiteHeader_noline">
-    <span class="iconShareBtn iconShareBtn3" @click="historyBack()"></span>
     <h1>{{title}}</h1>
-    <span v-if="operateTxt==''" class="resetBtn"></span>
-    <span v-show="operateTxt!=''" :class="{'no':!isClick}" class="resetBtn" @click="operateFuc">{{operateTxt}}</span>
+    <span class="iconShareBtn iconShareBtn3 floatLeft" @click="historyBack()"></span>
+    <!-- <span v-if="operateTxt==''" class="resetBtn floatRight"></span>占位用 -->
+    <span v-show="operateTxt!=''" :class="{'no':!isClick}" class="resetBtn floatRight" @click="operateFuc">{{operateTxt}}</span>
   </header>
 </template>
 <script>
   // title 只有返回按钮和标题
-  // share 只有返回按钮和分享按钮
+  // share 只有返回按钮和分享按钮（透明底）
+  // shareWhite 只有返回按钮和分享按钮(白底)
+  // shareBuyApp 买手app分享
+  // white 白底有标题，右边按钮可定制
+  // whiteIcon 白底有标题，右边按钮可定制（底下没线）
+
   // goodsId 商品id
   // shareBtnShow 分享按钮是否显示
   //operateTxt bar右上角的文字
@@ -221,11 +228,13 @@
     top: 0;
     height: 0.9rem;
     background: #fafafa;
-    display: flex;
+    display: block;
+    /* display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: center; */
     padding: 0 .3rem;
     z-index: 12;
+    overflow: hidden;
     /* border-bottom: 1px solid #e6e6e6; */
   }
 
@@ -236,6 +245,16 @@
     font-size: .28rem;
     color: #fe3d36;
     text-align: center;
+  }
+  header .floatLeft{
+    position: absolute;
+    top:0.15rem;
+    left: 0.3rem;
+  }
+  header .floatRight{
+    position: absolute;
+    top:0.15rem;
+    right: 0.3rem;
   }
 
   header .iconBtn {
@@ -251,11 +270,14 @@
     text-align: center;
     width: 50%;
     font-weight: normal;
+    line-height: 0.9rem;
+    margin: 0 auto;
   }
 
   header .resetBtn {
     font-size: .28rem;
     color: #000;
+    line-height: 0.6rem;
   }
 
   header .resetBtn.no {

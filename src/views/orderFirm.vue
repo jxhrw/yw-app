@@ -91,7 +91,6 @@
         onPrompt: false,
         secondKillGoods: false, //是否是秒杀商品
         imgUrl: '', //图片验证码
-        firstCode:true,//是否首次获取验证码
       }
     },
     methods: {
@@ -203,13 +202,12 @@
       //尝试提交订单
       tryOrder() {
         if (this.secondKillGoods) {
-          if(this.firstCode && this.imgUrl==""){
+          if(this.imgUrl==""){
             this.getImgCode();
           }
-          this.firstCode = false;
           this.onPrompt = true;
         } else {
-          toOrder('');
+          this.toOrder('');
         }
       },
       //提交订单
@@ -262,6 +260,7 @@
     },
     activated() {
       this.onPrompt = false;
+      this.imgUrl = "";
       this.origin = this.$route.query.origin;
       if (!this.$route.meta.isBack) { //初次
         let goodsId = this.$route.query.goodsId;

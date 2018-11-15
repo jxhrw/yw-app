@@ -59,7 +59,7 @@
       isShow(cur, old) {
         setTimeout(() => {
           this.anime = cur;
-        });
+        },50);
       }
     },
     data() {
@@ -90,6 +90,7 @@
 
 <style scoped>
   .yw-messagebox__mask-transition--- {
+    -webkit-transition: all .4s;
     transition: all .4s;
   }
 
@@ -106,7 +107,7 @@
   }
 
   .yw-popup {
-    border-radius: 4px !important;
+    border-radius: 2px !important;
     background-color: #ffffff;
   }
 
@@ -117,7 +118,8 @@
     left: 50%;
     overflow: hidden;
     width: 270px;
-    transform: translate3d(-50%, -50%, 0) scale(1.185);
+    transform: translate3d(-50%, -50%, 0) scale(1.185); 
+    -webkit-transform: translate3d(-50%, -50%, 0) scale(1.185);
     text-align: center;
     color: #000;
     -webkit-border-radius: 13px;
@@ -128,6 +130,7 @@
     -webkit-transition: all .4s;
     transition: all .4s;
     transform: translate3d(-50%, -50%, 0) scale(1);
+    -webkit-transform: translate3d(-50%, -50%, 0) scale(1);
   }
 
   .yw-popup.yw-popup-in {
@@ -142,7 +145,7 @@
   }
 
   .yw-popup-inner {
-    border-radius: 4px 4px 0 0 !important;
+    border-radius: 2px 2px 0 0 !important;
     padding: 0.4rem 0.48rem 0.4rem 0.48rem !important;
   }
 
@@ -217,13 +220,13 @@
   }
 
   .yw-popup-button:first-child {
-    border-radius: 0 0 0 4px;
+    border-radius: 0 0 0 2px;
   }
 
   .yw-popup-button:last-child {
     color: #ffffff;
     background: linear-gradient(60deg, rgba(251, 100, 85, 1) 0%, rgba(254, 61, 54, 1) 100%);
-    border-radius: 0 0 4px 0;
+    border-radius: 0 0 2px 0;
   }
 
   .codeInput {
@@ -231,6 +234,7 @@
     padding: 0 0.1rem;
     height: 0.7rem;
     display: inline-block;
+    margin-left: 2px;
   }
 
   .codeInput {
@@ -242,6 +246,7 @@
     height: 0.7rem;
     display: block;
     float: right;
+    background: #c7c7c7;
   }
 
 </style>
