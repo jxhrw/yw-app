@@ -292,3 +292,11 @@ export const isAgentGet = pams => {
     "params": pams
   });
 };
+
+
+//生成图片验证码
+export const imageCreate = pams => {
+  return apiToken.get(`${base}/fund-account/verity/image/fund/create`, {
+    "params": pams
+  });
+};

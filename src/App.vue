@@ -158,25 +158,25 @@
   /* alert,confirm弹窗的样式 */
 
   .wc-popup {
-    border-radius: 4px !important;
+    border-radius: 2px !important;
     background-color: #ffffff;
   }
 
   .wc-popup-inner {
-    border-radius: 4px 4px 0 0 !important;
+    border-radius: 2px 2px 0 0 !important;
     padding: 0.4rem 0.48rem 0.4rem 0.48rem !important;
   }
 
   .wc-popup-button {
-    border-radius: 0 0 4px 4px !important;
+    border-radius: 0 0 2px 2px !important;
   }
 
   .wc-popup-button:first-child {
-    border-radius: 0 0 0 4px !important;
+    border-radius: 0 0 0 2px !important;
   }
 
   .wc-popup-button:last-child {
-    border-radius: 0 0 4px 0 !important;
+    border-radius: 0 0 2px 0 !important;
   }
 
   .wc-popup-inner:after,

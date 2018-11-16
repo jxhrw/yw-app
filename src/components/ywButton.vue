@@ -127,4 +127,8 @@
     background: url('') no-repeat center/100% 100%;
   }
 
+  button:active{
+    opacity: 0.8;
+  }
+
 </style>
