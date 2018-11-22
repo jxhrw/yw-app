@@ -363,6 +363,17 @@ export default new Router({
         isBack: false,
       }
     },
+    //有表鉴定：清洗打磨-大屏机
+    {
+      path: '/appraisal_b',
+      component: resolve => {
+        return require(['@/views/appraisal_1'], resolve)
+      },
+      meta: {
+        keepAlive: true,
+        isBack: false,
+      }
+    },
     //物流
     {
       path: '/logistics',
