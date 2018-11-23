@@ -254,10 +254,10 @@ export default new Router({
         isBack: false,
       }
     },
-    //活动地址1105 -- 采访
+    //活动地址1126 -- 采访
     {
-      path: '/act1105',
-      component: resolve => { return require([ '@/views/activity_1105cf' ], resolve) },
+      path: '/act1126f',
+      component: resolve => { return require([ '@/views/activity_1126cf' ], resolve) },
       meta: {
         keepAlive: true,
         isBack:false,
@@ -281,10 +281,10 @@ export default new Router({
         isBack:false,
       }
     },
-    //活动地址1110
+    //活动地址1123
     {
-      path: '/act1110',
-      component: resolve => { return require([ '@/views/activity_1110' ], resolve) },
+      path: '/act1123',
+      component: resolve => { return require([ '@/views/activity_1123' ], resolve) },
       meta: {
         keepAlive: true,
         isBack:false,
